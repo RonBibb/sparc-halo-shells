@@ -1,0 +1,8 @@
+6228c870cb2a9441634bc16c42146aa8  dc14_ngc5055_showcase.csv
+fdba51a7f90d3b31bfd743733115a524  dc14_universal_failures_results.csv
+1061231c64e9a3e4120edaf41c4a05c8  einasto_full_sample_results.csv
+d6841d1117503abd61a15fe01f5b4755  einasto_robustness_results.csv
+f3d09c474469e4e8258a1bb6c913aa89  null_test_T2-T9_combined.csv
+d931208e8167e1315e32da739804f42e  null_test_T8_T9_extension.csv
+4e3fc0fe99aeaccc5d0219e2e38e3ccb  null_test_results.csv
+b5eddfe46563ec194e952c2eb0cc3706  sparc_T2-T9_canonical_fits.csv

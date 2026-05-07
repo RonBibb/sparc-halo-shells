@@ -1,0 +1,127 @@
+# halo_shells v7.0
+
+**Localized Residual Structure in SPARC Rotation Curves: A Burkert-Backbone Model with BIC-Selected Shells**
+
+Author: Ron Bibb (ronbibb@gmail.com)
+ORCID: 0009-0004-1153-2464
+Version: v7.0
+Release date: May 7, 2026
+
+---
+
+## What is this?
+
+This package contains the manuscript, data, producer scripts, and figures for the v7.0 revision of the SPARC rotation-curves halo-shells paper. It is a self-contained scientific release intended for journal submission and public deposit.
+
+## What v7.0 changed relative to v6.5
+
+The v6.5 implementation of the shell-width constraint (`σ/r ≤ 0.4`) was looser than the constraint stated in the manuscript text — it bounded `σ ≤ r_max × 0.4` rather than `σ ≤ r_fitted × 0.4`. Under v7.0, the constraint is enforced strictly via reparameterization (`σ = f · r` with `f ∈ [0.01, 0.4]` as a box-bounded fit parameter). All affected producers were re-run and the manuscript was updated accordingly.
+
+**Net impact:** Only ~5% of BIC verdicts changed. Every trend-test statistic tightened (every p-value got smaller). One substantive argument was retired and replaced by a stronger one (see Appendix A of the manuscript).
+
+For full details see `VALIDATION_STATUS.md`, particularly the v6.5 → v7.0 comparison table.
+
+## Package contents
+
+```
+halo_shells_v7.0/
+├── README.md                       (this file)
+├── VALIDATION_STATUS.md            current state of v7.0 validation
+├── VALIDATION_PLAN.md              checklist of consistency tests for submission
+├── DATA_PROVENANCE.md              CSV-to-producer-script trace
+│
+├── source/
+│   └── sparc_shells_body.tex       v7.0 manuscript (LaTeX)
+│
+├── data/
+│   ├── sparc_T2-T9_canonical_fits.csv      v7.0 canonical Burkert+shells fits, all 102 galaxies
+│   ├── null_test_results.csv               v7.0 main null test (T=2-7, 280 mocks)
+│   ├── null_test_T8_T9_extension.csv       v6.5 extension preserved (T=8-9, 66 mocks; σ/r already enforced)
+│   ├── null_test_T2-T9_combined.csv        combined null test (346 mocks total)
+│   ├── einasto_full_sample_results.csv     v7.0 Einasto-backbone full sample (102 galaxies)
+│   ├── einasto_robustness_results.csv      v7.0 Einasto 16-galaxy stratified subsample
+│   ├── dc14_universal_failures_results.csv v6.5 preserved (constraint-independent)
+│   └── dc14_ngc5055_showcase.csv           v6.5 preserved (constraint-independent)
+│
+├── scripts/
+│   ├── run_canonical_fits.py               v7.0 canonical fitter
+│   ├── null_test.py                        v7.0 main null test producer
+│   ├── null_test_extension.py              v6.5 T=8/9 extension (preserved; σ/r already enforced)
+│   ├── einasto_backbone.py                 v7.0 Einasto framework library
+│   ├── run_einasto_full_sample.py          v7.0 full-sample Einasto runner
+│   ├── run_einasto_robustness.py           v7.0 16-galaxy stratified Einasto runner
+│   ├── dc14_universal_failures.py          v6.5 preserved
+│   ├── dc14_ngc5055.py                     v6.5 preserved
+│   ├── permutation_test.py                 stats helper for §3.3
+│   ├── verify_canonical_fit.py             verification utility
+│   ├── figure4_300dpi.py                   figure generator (v7.0, runs cleanly)
+│   ├── figure5_300dpi.py                   figure generator (v7.0, runs cleanly)
+│   ├── validate_v7_A.py                    A1-A8 numerical validation
+│   └── validate_v7_B.py                    B1-B6 cross-section validation
+│
+└── figures/
+    ├── figure1_T4_example_grid.png         constraint-independent
+    ├── figure2_ngc5055_showcase.png        constraint-independent
+    ├── figure3_universal_failures.png      constraint-independent
+    ├── figure4_shellfrac_vs_T.{pdf,png}    v7.0, regenerated
+    ├── figure5_dbic_histogram.{pdf,png}    v7.0, regenerated
+    ├── T{2-9}_burkert_vs_framework.png     constraint-independent T-grid panels
+    ├── ngc5055_worst_burkert_tier1.png     constraint-independent
+    └── universal_failures.png              constraint-independent
+```
+
+## Reproducing the v7.0 results
+
+You will need:
+- Python 3.10+ with numpy, scipy, pandas, matplotlib
+- The SPARC rotation-curve data files (publicly available from Lelli, McGaugh & Schombert 2016 supplementary materials)
+
+Place SPARC rotmod files in `Rotmod_LTG/` alongside the scripts directory, then:
+
+```bash
+cd halo_shells_v7.0/scripts/
+python3 run_canonical_fits.py        # ~30 min on Apple Silicon Ultra
+python3 null_test.py                  # ~10 min
+python3 null_test_extension.py        # ~5 min
+python3 run_einasto_full_sample.py    # ~30-60 min
+python3 run_einasto_robustness.py     # ~10 min
+python3 dc14_universal_failures.py    # constraint-independent
+python3 dc14_ngc5055.py               # constraint-independent
+python3 figure4_300dpi.py             # figures 4 and 5
+python3 figure5_300dpi.py
+```
+
+Total compute budget: ~2 hours on a modern Apple Silicon Mac, single-process.
+
+## Status
+
+This package is **release candidate v7.0**, validated and ready for repository deposit:
+
+| Component | Status |
+| --------- | ------ |
+| Manuscript text | ✅ DONE |
+| Data CSVs | ✅ DONE (all 8 in `data/`, with MD5SUMS) |
+| Producer scripts | ✅ DONE (all 14 in `scripts/`, paths package-relative) |
+| Figures 1, 2, 3, T-grids | ✅ Constraint-independent, valid as-is |
+| Figures 4 and 5 | ✅ Regenerated on v7.0 data |
+| Validation pass A1-A8 (manuscript ↔ data) | ✅ 8/8 pass, 97 numerical claims verified |
+| Validation pass B1-B6 (manuscript ↔ manuscript) | ✅ 6/6 pass, 24 cross-section patterns checked |
+| Code repository URL | ⚠️ TBD (manuscript currently says "pending") |
+| Zenodo DOI | ⚠️ Not yet deposited |
+
+See `VALIDATION_STATUS.md` for the complete checklist of what's done and what's pending.
+
+## Citation
+
+Until the AJ publication is final and assigned a DOI, please cite as:
+
+> Bibb, R. (2026). *Localized Residual Structure in SPARC Rotation Curves: A Burkert-Backbone Model with BIC-Selected Shells.* halo_shells v7.0.
+
+## Contact
+
+Ron Bibb — ronbibb@gmail.com — ORCID 0009-0004-1153-2464
+
+## License
+
+Manuscript: under journal submission (license TBD upon AJ acceptance).
+Data and code: CC-BY-4.0 (or equivalent open license; finalize at Zenodo deposit).
