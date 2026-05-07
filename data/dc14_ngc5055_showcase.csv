@@ -1,0 +1,2 @@
+galaxy,T,V_flat,class,n_pts,n_restarts,rho_s,r_s,X,alpha,beta,gamma,chi2,chi2_red,bic,verdict,elapsed_s
+NGC5055,4,179.0,showcase,22,21,4.504829e+06,13.8827,-2.5426,2.6341,2.5038,0.2441,171.1132,9.0060,180.3863,FAIL,152.87
