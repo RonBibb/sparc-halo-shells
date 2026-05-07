@@ -7,27 +7,17 @@
 % Do not include \documentclass, \begin{document}, or \end{document}.
 % Do not include preamble \usepackage commands; those live in the wrappers.
 
-\title[Localized residual structure in SPARC]{Localized Residual Structure in SPARC Rotation Curves: A Burkert-Backbone Model with BIC-Selected Shells}
+\title{Localized Residual Structure in SPARC Rotation Curves: A Burkert-Backbone Model with BIC-Selected Shells}
 
-\author[Bibb]{
-Ronald Bibb\thanks{E-mail: ronbibb@gmail.com; ORCID: \href{https://orcid.org/0009-0004-1153-2464}{0009-0004-1153-2464}}\\
-Independent Researcher, Lilburn, GA, USA
-}
-
-\date{\today}
-\pubyear{2026}
-
-\label{firstpage}
-\pagerange{\pageref{firstpage}--\pageref{lastpage}}
-\maketitle
+\author[orcid=0009-0004-1153-2464]{Ronald Bibb}
+\affiliation{Independent Researcher, Lilburn, GA, USA}
+\email[show]{ronbibb@gmail.com}
 
 \begin{abstract}
 Galactic dark matter halos are conventionally modeled with smooth profiles (NFW, Burkert, pseudo-isothermal variants), but rotation curves frequently display localized features --- inner cusps, mid-disk inflections, and outer-flattening structures --- that smooth profiles often struggle to reproduce without introducing global distortions or large residuals. We hypothesize that some rotation-curve features may reflect localized deviations from smooth halo structure, and that capturing them requires architectural decomposition rather than additional profile flexibility. We implement a framework comprising a Burkert backbone plus 0--2 BIC-selected Gaussian shells per galaxy, with shell width strictly constrained to $\sigma/r_{\rm shell} \leq 0.4$ via reparameterization, and test it against 102 SPARC galaxies (T=2--9, 2334 data points) spanning Sab through Sdm spirals. The framework adequately fits 91/102 galaxies ($\chi^2_{\rm red} < 1.5$) versus 52/102 for NFW and 65/102 for Burkert alone. By Bayesian Information Criterion, the framework is very strongly preferred ($\Delta\mathrm{BIC} < -10$) over NFW in 53 of 102 galaxies (median $\Delta\mathrm{BIC} = -35$); 8 galaxies BIC-prefer NFW, none very strongly. Comparison against Burkert alone is structurally asymmetric (the framework reduces exactly to Burkert when zero shells are selected) and we therefore report it for completeness rather than as an independent test. Shell-bearing fraction shows a statistically significant declining trend across the morphological range (T-label permutation test on 102 individual galaxies, 10{,}000 resamples: $p_{\rm one\mbox{-}sided} = 0.001$, $p_{\rm two\mbox{-}sided} = 0.002$; Spearman $\rho = -0.83$ with bootstrap 95\% CI $[-0.95, -0.22]$; Mann-Kendall $p = 0.003$): 100\% at T=2 (Sab), 53--56\% across T=3--6, 36\% at T=7 (Scd), 33\% at T=8 (Sd), and 31\% at T=9 (Sdm). The signal is driven by the T=2 excess and the late-type decline; the middle of the gradient (T=3--6) is essentially flat. A synthetic null test on a stratified subsample across T=2--9 (346 mocks total) yields aggregate false shell-selection rates of 4.0\% under Burkert truth and 63.6\% under NFW truth, indicating that BIC suppresses shells well when the backbone matches but can misidentify base-profile shape mismatches as localized structure. The Burkert-truth false-positive rate is uniformly low ($\leq 5\%$ in 6 of 8 T-bins, with isolated rates of 11\% at T=8 and 13\% at T=9 reflecting low-S/N late-type rotation curves) and uncorrelated with T-type (Spearman $\rho = +0.33$, $p = 0.42$). Real-data shell-bearing fractions of 31--100\% per T-bin exceed the corresponding Burkert-truth FP rates by factors of 6--20, ruling out smooth-Burkert truth as the dominant driver of the gradient. The NFW-truth null FP rate is roughly flat across T-type and could not produce the strong negative real trend either. Mixed-truth and external-family scenarios (smooth profiles outside the cored-cuspy family) remain logically possible and are addressed only partially, by the Einasto-backbone robustness test described below. The T=2 shell-bearing fraction is overwhelmingly significant against null expectations (Fisher one-sided $p \approx 10^{-6}$). At the late-type end, T=9 real shell-bearing (31\%) sits significantly below NFW-truth null expectation (67\%, Fisher one-sided $p = 0.05$). NGC~5055 provides a clean single-galaxy example of where smooth halos fail: Burkert $\chi^2_{\rm red} = 9.5$, NFW $\chi^2_{\rm red} = 30.2$, DC14 $\chi^2_{\rm red} = 9.0$, while the framework with one BIC-selected shell at $r \approx 12$~kpc, $M \approx 4 \times 10^{10}$~M$_\odot$ achieves $\chi^2_{\rm red} = 1.5$. As an additional test of smooth-profile expressive capacity, we fit the cosmologically-motivated \citet{DiCintio2014a,DiCintio2014b} DC14 feedback-modified profile to all 10 universal-failure galaxies; DC14 also fails adequacy on 10/10, with 8/10 fits pegged at the DC14 parameter boundary attempting to revert to NFW. We note that the universal-failure subset is dominated by massive spirals (typically $V_{\rm flat} > 200$~km/s) sitting near the lower edge of the regime in which DC14 was calibrated, so this result does not generalize to the full range of feedback-modified profiles. As a backbone-robustness check (\S\ref{sec:robustness}), we re-ran the framework on the full 102-galaxy sample with the Burkert backbone replaced by the more flexible 3-parameter Einasto profile; shell-bearing classification agrees with the Burkert-backbone result in 90 of 102 galaxies (88\%), the morphology gradient is preserved at full-sample statistical strength (per-galaxy Spearman $\rho = -0.347$, $p = 0.0004$ under Einasto, vs $\rho = -0.296$, $p = 0.003$ under Burkert), and NGC~5055 still requires shells under the Einasto backbone (Einasto-only $\chi^2_{\rm red} = 8.42$, Einasto+2-shell $\chi^2_{\rm red} = 0.51$), indicating that the framework's main findings are not driven by the specific choice of Burkert backbone within the cored-cuspy family. Per-galaxy event identification cannot be supported by rotation curve data alone; the framework's empirical content lies in its population-level patterns and the architectural shape predictions smooth halos cannot reproduce.
 \end{abstract}
 
-\begin{keywords}
-galaxies: kinematics and dynamics -- dark matter -- galaxies: haloes -- galaxies: spiral
-\end{keywords}
+\keywords{galaxies: kinematics and dynamics --- dark matter --- galaxies: haloes --- galaxies: spiral}
 
 % =============================================================================
 \section{Introduction}
@@ -523,5 +513,3 @@ Sellwood J.~A., 2014, Rev. Mod. Phys., 86, 1
 Sellwood J.~A., Wilkinson A., 1993, Rep. Prog. Phys., 56, 173
 
 \end{thebibliography}
-
-\label{lastpage}
