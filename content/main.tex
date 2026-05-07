@@ -1,0 +1,27 @@
+% main.tex
+% =============================================================================
+% AJ submission wrapper for sparc_shells_body.tex
+%
+% Uses AAS journals' aastex701 class. The body file uses native AASTeX v7
+% syntax for title block (\title, \author[orcid], \email, \affiliation) and
+% keywords (\keywords{...}), so this wrapper needs no compatibility shims.
+%
+% For initial AJ submission, use [manuscript] (single-column, double-spaced).
+% For previewing the final published two-column look, use [twocolumn].
+%
+% Compile:
+%   pdflatex main.tex
+%   pdflatex main.tex   (re-run for cross-references)
+% =============================================================================
+
+\documentclass[manuscript,linenumbers]{aastex701}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+
+\begin{document}
+
+\input{sparc_shells_body}
+
+\end{document}
