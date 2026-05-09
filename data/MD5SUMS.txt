@@ -7,4 +7,5 @@ f3d09c474469e4e8258a1bb6c913aa89  null_test_T2-T9_combined.csv
 d931208e8167e1315e32da739804f42e  null_test_T8_T9_extension.csv
 4e3fc0fe99aeaccc5d0219e2e38e3ccb  null_test_results.csv
 b5eddfe46563ec194e952c2eb0cc3706  sparc_T2-T9_canonical_fits.csv
+1dbfabbc134ae8023f99747f578a2d53  sparc_T2-T9_y_T_fits.csv
 5ef57269273edd949638eaef51612967  sparc_sample123.csv
