@@ -100,6 +100,12 @@ Each Bx check verifies that a number quoted in two or more places in the manuscr
 - **Check:** all locations agree
 - **Status:** ⏳
 
+### B7. T-binned Upsilon_disk refit (M/L systematics)
+- **Locations:** Abstract, §6.4
+- **Common values:** classification stability 96.1%; per-galaxy permutation `p_two = 0.008`; per-galaxy ρ = -0.264; T=2 vs T=3-6 Fisher p = 0.004; bootstrap CI [-0.905, -0.096]; adequacy 90/66/51; Schombert 2022 anchor Y(T=2) = 0.65
+- **Check:** all values consistent with `data/sparc_T2-T9_y_T_fits.csv`; the §6.4 refutation paragraph contains all headline numbers
+- **Status:** ⏳
+
 ---
 
 ## Part C — Producer reproducibility (optional but recommended)
@@ -108,12 +114,17 @@ Each Bx check verifies that a number quoted in two or more places in the manuscr
 - **Action:** Re-run `scripts/run_canonical_fits.py` against `Rotmod_LTG/` and verify the output CSV byte-matches `data/sparc_T2-T9_canonical_fits.csv` (MD5: `b5eddfe46563ec194e952c2eb0cc3706`)
 - **Status:** ⏳
 
-### C2. Null test reproducibility
+### C2. T-binned Y refit reproducibility
+- **Action:** Re-run `scripts/run_canonical_fits_y_T.py` against `Rotmod_LTG/` and verify the output CSV byte-matches `data/sparc_T2-T9_y_T_fits.csv` (MD5: `1dbfabbc134ae8023f99747f578a2d53`)
+- **Caveat:** Multi-restart fitting may produce small floating-point differences across machines; sanity-check via the B7 headline numbers if exact byte-match fails
+- **Status:** ⏳
+
+### C3. Null test reproducibility
 - **Action:** Re-run `scripts/null_test.py` and verify the output CSV byte-matches `data/null_test_results.csv`
 - **Caveat:** depends on numpy random_state stability across machines and numpy versions
 - **Status:** ⏳
 
-### C3. Einasto reproducibility
+### C4. Einasto reproducibility
 - **Action:** Re-run `scripts/run_einasto_full_sample.py` and verify byte-match
 - **Status:** ⏳
 
@@ -126,7 +137,7 @@ The validation is implemented as two scripts in `scripts/`:
 - `validate_v7_A.py` — automates checks A1-A8 (manuscript prose claims vs CSV).
   Loads all v7.0 CSVs, parses numeric claims from `source/sparc_shells_body.tex`,
   and verifies each claim against the corresponding CSV computation.
-- `validate_v7_B.py` — automates checks B1-B6 (cross-section consistency:
+- `validate_v7_B.py` — automates checks B1-B7 (cross-section consistency:
   whether the same numbers appear consistently in abstract, body sections,
   and table captions; whether stale v6.5 values were cleanly removed).
 
@@ -134,7 +145,7 @@ Both should pass clean before any submission. Run from the package root:
 
 ```
 python3 scripts/validate_v7_A.py    # Should print ALL 8/8 CHECKS PASSED
-python3 scripts/validate_v7_B.py    # Should print ALL 6/6 CHECKS PASSED
+python3 scripts/validate_v7_B.py    # Should print ALL 7/7 CHECKS PASSED
 ```
 
 These were the last scripts run before v7.0 release lock-in.
@@ -143,7 +154,7 @@ These were the last scripts run before v7.0 release lock-in.
 
 ## Submission checklist (post-validation)
 
-After all A1-A8 and B1-B6 checks pass:
+After all A1-A8 and B1-B7 checks pass:
 
 - [ ] Compile manuscript to PDF; visual review of pagination, figure references, table widths
 - [ ] Generate `data/MD5SUMS.txt` for reproducibility

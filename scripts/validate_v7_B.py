@@ -1,5 +1,5 @@
 """
-validate_v7_B.py — Cross-section consistency checks B1–B6 for halo_shells v7.0.
+validate_v7_B.py — Cross-section consistency checks B1–B7 for halo_shells v7.0.
 
 For each check, the script searches the manuscript .tex for occurrences of a
 specific numerical claim and verifies that all locations report the same value.
@@ -323,9 +323,9 @@ def B4():
     print(m5)
     
     # Anti-checks: stale v6.5 values
-    p6, m6 = check_no_stale("no stale 4.3% Burkert FP (v6.5)", r'4\.3\\?\%', regex=True)
+    p6, m6 = check_no_stale("no stale 4.3% Burkert FP (v6.5)", r'\b4\.3\\?\%', regex=True)
     print(m6)
-    p7, m7 = check_no_stale("no stale 57.3% NFW FP (v6.5)", r'57\.3\\?\%', regex=True)
+    p7, m7 = check_no_stale("no stale 57.3% NFW FP (v6.5)", r'\\b57\.3\\?\%', regex=True)
     print(m7)
     p8, m8 = check_no_stale("no stale '234 mocks' (v6.5)", r'\b234\s+mocks?\b', regex=True)
     print(m8)
@@ -400,6 +400,58 @@ def B6():
 
 
 # ============================================================
+# B7. T-binned Upsilon_disk refit headline numbers
+#     (T=2: 9/9; classification stability 96.1%; per-galaxy permutation
+#      p_two = 0.008; per-galaxy Spearman ρ = -0.264; bootstrap CI on per-bin
+#      Spearman [-0.905, -0.096])
+# ============================================================
+def B7():
+    print(f"\n{C.BOLD}B7. T-binned Upsilon_disk refit (M/L systematics){C.END}")
+    print(f"   Should appear in: Abstract, §6.4")
+    
+    with open(TEX_PATH) as f:
+        text = f.read()
+    sections = build_section_map(text)
+    
+    # 96.1% classification stability
+    hits_stab = find_all(text, r'96\.1\\?\\?%', regex=True)
+    p1, m1 = report_check("Classification stability 96.1%", hits_stab, expected_min=1, sections=sections)
+    print(m1)
+    
+    # Per-galaxy permutation p = 0.008 under T-binned Y
+    hits_perm = find_all(text, r'p_\{\\rm two\\mbox\{-\}sided\}\s*=\s*0\.008', regex=True)
+    p2, m2 = report_check("Y_T permutation p_two = 0.008", hits_perm, expected_min=1, sections=sections)
+    print(m2)
+    
+    # Per-galaxy Spearman ρ = -0.264
+    hits_rho = find_all(text, r'\\rho\s*=\s*-0\.264', regex=True)
+    p3, m3 = report_check("Y_T per-galaxy ρ = -0.264", hits_rho, expected_min=1, sections=sections)
+    print(m3)
+    
+    # T=2 vs T=3-6 Fisher strengthens to p = 0.004
+    hits_fisher = find_all(text, r'p\s*=\s*0\.004', regex=True)
+    p4, m4 = report_check("Y_T T=2-vs-T=3-6 Fisher p = 0.004", hits_fisher, expected_min=1, sections=sections)
+    print(m4)
+    
+    # Bootstrap CI [-0.905, -0.096]
+    hits_ci = find_all(text, r'\[-0\.905,\s*-0\.096\]', regex=True)
+    p5, m5 = report_check("Y_T bootstrap CI [-0.905, -0.096]", hits_ci, expected_min=1, sections=sections)
+    print(m5)
+    
+    # Adequacy counts under Y_T: 90/102 framework, 66/102 Burkert, 51/102 NFW
+    hits_adeq = find_all(text, r'framework 90/102, Burkert 66/102, NFW 51/102', regex=True)
+    p6, m6 = report_check("Y_T adequacy 90/66/51", hits_adeq, expected_min=1, sections=sections)
+    print(m6)
+    
+    # Schombert+2022 anchor pattern: 0.65, 0.50, 0.40 should appear in §6.4
+    hits_anchors = find_all(text, r'\\Upsilon_\{\\rm disk\}\(T=2\)\s*=\s*0\.65', regex=True)
+    p7, m7 = report_check("Y(T=2) = 0.65 anchor in §6.4", hits_anchors, expected_min=1, sections=sections)
+    print(m7)
+    
+    return all([p1, p2, p3, p4, p5, p6, p7])
+
+
+# ============================================================
 # Driver
 # ============================================================
 def main():
@@ -419,6 +471,7 @@ def main():
         ('B4', B4, 'Null test aggregates (4.0%/63.6%/346)'),
         ('B5', B5, 'Einasto agreement (90/102, 88%)'),
         ('B6', B6, 'Einasto gradient stats (ρ=-0.347, p=0.0004)'),
+        ('B7', B7, 'Y_T refit (T=2 stays 100%, p=0.008, ρ=-0.264)'),
     ]
     
     results = {}

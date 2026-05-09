@@ -11,6 +11,7 @@ deterministically.
 | CSV file | Rows × Cols | Producer | Inputs | Manuscript section |
 |---|---|---|---|---|
 | `sparc_T2-T9_canonical_fits.csv` | 102 × 43 | `run_canonical_fits.py` | SPARC rotmod files, `sparc_sample123.csv` | abstract, §3.1, §3.2, §3.3, §3.6, Tables 1-4, 6 |
+| `sparc_T2-T9_y_T_fits.csv` | 102 × 43 | `run_canonical_fits_y_T.py` | SPARC rotmod files, `sparc_sample123.csv` | §6.4 (M/L systematics robustness re-fit) |
 | `dc14_ngc5055_showcase.csv` | 1 × 17 | `dc14_ngc5055.py` | SPARC rotmod (NGC 5055 only) | §3.4, Table 6 |
 | `dc14_universal_failures_results.csv` | 10 × 17 | `dc14_universal_failures.py` | SPARC rotmod files | §4.1, Table 7 |
 | `einasto_robustness_results.csv` | 16 × 23 | `run_einasto_robustness.py` | SPARC rotmod files, `einasto_backbone.py` (library) | §3.6 |
@@ -64,6 +65,23 @@ via `scripts/make_galaxy_classifications.py`; the rules are:
 The script reproduces every row to machine precision (max diff 2.22e-16
 on `max_bulge_frac`; 123/123 exact on all six flag columns).
 
+`sparc_T2-T9_y_T_fits.csv` — output of `scripts/run_canonical_fits_y_T.py`,
+identical in column structure to the canonical fits CSV but produced
+under a T-binned `Upsilon_disk` schedule rather than the canonical
+`Upsilon_disk = 0.5` constant. The schedule is piecewise-linear with
+anchors at `Y(T=2)=0.65`, `Y(T=5)=0.50`, `Y(T=9)=0.40` per
+Schombert+2022 color calibrations, the strongest realistic gradient
+discussed in the literature. `Upsilon_bulge` is held at 0.7 (canonical;
+bulges are old in all T-types). The schedule is documented in the
+script header and locked in the `UPSILON_DISK_BY_T` dict at the top of
+the file. This CSV is the input for §6.4's M/L-systematics robustness
+test (which the headline result of: T=2 stays at 9/9 = 100%
+shell-bearing, full-sample per-galaxy classification stability is 96.1%
+versus the canonical CSV, and the morphology-gradient finding survives
+under T-binned Y at per-galaxy permutation `p_two_sided = 0.008` versus
+0.002 canonical). Validator B7 in `scripts/validate_v7_B.py` locks
+these headline numbers against future code changes.
+
 ## Reproducibility chain
 
 ```
@@ -91,6 +109,9 @@ SPARC rotmod files (Lelli+2016 raw data)
        │
        ├── dc14_universal_failures.py
        │      → dc14_universal_failures_results.csv (§3.6, Table 7)
+       │
+       ├── run_canonical_fits_y_T.py  (T-binned Upsilon_disk re-fit)
+       │      → sparc_T2-T9_y_T_fits.csv (§6.4 M/L systematics robustness)
        │
        └── run_einasto_robustness.py
               → einasto_robustness_results.csv (§3.6)

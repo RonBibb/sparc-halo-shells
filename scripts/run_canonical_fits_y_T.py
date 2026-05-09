@@ -46,10 +46,10 @@ warnings.filterwarnings('ignore')
 # fall back to current directory (./Rotmod_LTG/) for legacy v6.5 layouts.
 import os as _os
 _HERE = _os.path.dirname(_os.path.abspath(__file__))
-_PACKAGE_DATA = _os.path.join(_os.path.dirname(_HERE), 'Rotmod_LTG')
+_PACKAGE_DATA = '/Users/ronbibb/Library/CloudStorage/OneDrive-Personal(2)/Documents/Academic/Rotmod_LTG'
 _LOCAL_DATA = _os.path.join(_os.getcwd(), 'Rotmod_LTG')
 DATA_DIR = _PACKAGE_DATA if _os.path.isdir(_PACKAGE_DATA) else _LOCAL_DATA
-SAMPLE_CSV = './sparc_sample123.csv'
+SAMPLE_CSV = '../data/sparc_sample123.csv'
 OUTPUT_CSV = './sparc_T2-T9_y_T_fits.csv'
 LOG_FILE = './run_canonical_fits_y_T.log'
 
