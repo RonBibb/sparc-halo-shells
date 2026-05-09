@@ -121,14 +121,23 @@ Each Bx check verifies that a number quoted in two or more places in the manuscr
 
 ## Running the validation
 
-A validation script `scripts/validate_v7.py` should be added that automates A1–A8 and B1–B6. It would:
-1. Load all v7.0 CSVs
-2. Load the manuscript .tex file
-3. Extract numeric claims from the manuscript via regex
-4. Verify each claim against the corresponding CSV computation
-5. Print a pass/fail report
+The validation is implemented as two scripts in `scripts/`:
 
-This script is **not yet written** but would be a natural one-evening task before submission. It should be the last thing run before the v7.0 release is locked.
+- `validate_v7_A.py` — automates checks A1-A8 (manuscript prose claims vs CSV).
+  Loads all v7.0 CSVs, parses numeric claims from `source/sparc_shells_body.tex`,
+  and verifies each claim against the corresponding CSV computation.
+- `validate_v7_B.py` — automates checks B1-B6 (cross-section consistency:
+  whether the same numbers appear consistently in abstract, body sections,
+  and table captions; whether stale v6.5 values were cleanly removed).
+
+Both should pass clean before any submission. Run from the package root:
+
+```
+python3 scripts/validate_v7_A.py    # Should print ALL 8/8 CHECKS PASSED
+python3 scripts/validate_v7_B.py    # Should print ALL 6/6 CHECKS PASSED
+```
+
+These were the last scripts run before v7.0 release lock-in.
 
 ---
 

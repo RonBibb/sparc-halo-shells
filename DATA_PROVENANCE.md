@@ -18,6 +18,8 @@ deterministically.
 | `null_test_results.csv` | 280 × 9 | `null_test.py` | `sparc_T2-T9_canonical_fits.csv` (for input fits) + SPARC rotmod radii | §3.5 |
 | `null_test_T8_T9_extension.csv` | 66 × 9 | `null_test_extension.py` | same as above, T=8/9 only | §3.5 |
 | `null_test_T2-T9_combined.csv` | 346 × 9 | combination of above two | merge of the two null_test CSVs | §3.5 |
+| `sparc_sample123.csv` | 123 × 25 | upstream sample table (see SPARC; not produced by any script in this package) | — | sample-construction provenance |
+| `galaxy_classifications.csv` | 123 × 32 | `make_galaxy_classifications.py` | `sparc_sample123.csv` + SPARC rotmod files | morphology-flag provenance |
 
 ## Producer-script-only files (no CSV output, but used by the pipeline)
 
@@ -28,12 +30,39 @@ deterministically.
 | `verify_canonical_fit.py` | Single-galaxy spot-check verifier. Reads canonical CSV and SPARC rotmod for one galaxy; reports whether the verifier reproduces canonical numbers. Used for Category-C validation. |
 | `figure4_300dpi.py` | Reads canonical CSV; produces `figures/figure4.pdf` and `figures/figure4.png`. |
 | `figure5_300dpi.py` | Reads canonical CSV; produces `figures/figure5.pdf` and `figures/figure5.png`. |
+| `figure_panels.py` | Reads canonical CSV + SPARC rotmod files; produces the rotation-curve panel figures: `figure1_T4_example_grid.png` (Figure 4 in manuscript), `figure2_ngc5055_showcase.png` (Figure 5), `figure3_universal_failures.png` (Figure 6 region), and the 8 supplementary T-bin grids `T2_burkert_vs_framework.png` through `T9_burkert_vs_framework.png`. Re-fits the framework Burkert backbone on the fly given stored shell parameters (the canonical CSV stores shell params but not the framework's rho_0/a, which differ from the burk-only fit). Modes: `t-grid [T]`, `ngc5055`, `universal`, `all`. |
 
-## Upstream input that is *not* produced by any script in this package
+## Upstream input shipped with the package but not produced by any script in this package
 
-`sparc_sample123.csv` — the SPARC catalog filtered to 123 galaxies, originally
-produced by Paper A's pipeline (`01_parse_sparc_master.py` from the Paper A
-v3 source). It is treated as a frozen input here. Documented in Paper A.
+`sparc_sample123.csv` — the SPARC catalog filtered to 123 candidate galaxies
+that passed the author's pre-fitting quality screen. The 102-galaxy T=2-9
+analysis sample reported in this paper is a subset (T=2 through T=9 only;
+21 galaxies at T=10 or with insufficient quality flags excluded). It is
+treated as a frozen input to the v7.0 pipeline and is shipped here for
+sample-construction provenance.
+
+`galaxy_classifications.csv` — `sparc_sample123.csv` augmented with seven
+morphology-classification flag columns (`is_dwarf`, `is_mw_like`,
+`is_bulge_dom`, `is_bulgeless`, `is_transitional`, `max_bulge_frac`,
+`has_bulge_col`). These flags are not used by the v7.0 fitting pipeline
+(which works directly from raw T-types) but are shipped for use by
+follow-up analyses that may need pre-computed bulge/dwarf classification
+without re-deriving it from the SPARC photometry. The classifications
+are reproducible from `sparc_sample123.csv` and the SPARC rotmod files
+via `scripts/make_galaxy_classifications.py`; the rules are:
+
+- `is_dwarf` = (T ≥ 8) AND (logM_star < 9.0)
+- `is_mw_like` = (T ∈ [3, 6]) AND (10.0 ≤ logM_star ≤ 11.0)
+- `max_bulge_frac` = max over r of [0.7·Vbul²(r) / (Vgas²(r) + 0.5·Vdisk²(r) + 0.7·Vbul²(r))]
+  using the absolute-square form (not sign-preserving) on the raw rotmod
+  Vgas/Vdisk/Vbul columns
+- `is_bulgeless` = (max_bulge_frac == 0)
+- `is_bulge_dom` = `has_bulge_col` = (max_bulge_frac > 0)
+- `is_transitional` = always False (vacuous in the v7.0 sample; reserved
+  for a future categorization)
+
+The script reproduces every row to machine precision (max diff 2.22e-16
+on `max_bulge_frac`; 123/123 exact on all six flag columns).
 
 ## Reproducibility chain
 
@@ -41,6 +70,9 @@ v3 source). It is treated as a frozen input here. Documented in Paper A.
 SPARC rotmod files (Lelli+2016 raw data)
        │
        ├── sparc_sample123.csv  (Paper A pipeline; treated as frozen input)
+       │      ↓
+       │      └── make_galaxy_classifications.py
+       │             → galaxy_classifications.csv  (morphology-flag provenance)
        │
        ├── run_canonical_fits.py
        │      → sparc_T2-T9_canonical_fits.csv
@@ -48,6 +80,7 @@ SPARC rotmod files (Lelli+2016 raw data)
        │             ├── permutation_test.py → stdout (§3.3)
        │             ├── figure4_300dpi.py → figures/figure4.{pdf,png}
        │             ├── figure5_300dpi.py → figures/figure5.{pdf,png}
+       │             ├── figure_panels.py → figures/figure[1-3]_*.png and T[2-9]_burkert_vs_framework.png
        │             ├── null_test.py → null_test_results.csv (§3.5)
        │             ├── null_test_extension.py → null_test_T8_T9_extension.csv (§3.5)
        │             ├── run_einasto_full_sample.py → einasto_full_sample_results.csv (§3.6)
