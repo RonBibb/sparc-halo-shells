@@ -1,182 +1,94 @@
-%% full_manuscript_review.tex
-%% Full v7.1.0 manuscript with queued PASP-resubmission changes integrated.
-%% Reconstructed from sparc_shells.pdf (text-extracted page-by-page).
+%% Beginning of file 'PASPsample701.tex'
 %%
-%% Build target: 2026-05-13 review snapshot.
+%% Modified 2026 May for "Localized Residual Structure in SPARC Rotation Curves"
+%% Bibb 2026, PASP submission.
 %%
-%% LOCAL PREVIEW MODE: this file uses article class for sandbox compile.
-%% When applying changes to v7.1.0 source on GitHub:
-%%   - swap documentclass to: \documentclass[twocolumn]{aastex701}
-%%   - delete the article-mode shim block below
-%%   - the figure stubs (\figstub) should be replaced by the original
-%%     \begin{figure}...\includegraphics{...}\end{figure} blocks
+%% Based on PASP-modified AASTeX v7.0.1 template.
 %%
-%% Visual conventions:
-%%   - NEW text queued for v7.1.1 is highlighted in dark blue via \new{...}
-%%   - The new abstract is shown with the structural reframe sentence in blue
-%%   - Editor's notes appear in framed boxes calling out pending changes
-%%
-%% LOCKED CHANGES (committed in this build):
-%%   Group A (load-bearing reframes):
-%%     - A1: New abstract (methods-framed)
-%%     - A2: S1 Para 3 verb reframe (test the hypothesis -> present a framework)
-%%     - A3: S1 Para 6 central-result demotion + validation triad inline
-%%     - A4: S5.1 morphology-gradient demotion (Para 1 cleanup + Para 2 opener)
-%%     - A5: S6 reordering (methods contribution first, demonstrations second)
-%%   Group A citations:
-%%     - Li 2020 sentence in intro Para 1
-%%     - Sofue 2009 sentence at end of intro Para 2
-%%     - Li 2019 paragraph as new paragraph 2 of S5.3
-%%   Group B (tone consistency):
-%%     - B1: New paper-organization paragraph at end of S1
-%%     - B2: S2.1 sample-extension motivation rewrite
-%%     - B3: S3.3 hierarchical-assembly paragraph reframe
-%%     - B4: S3.7 "two main findings" -> "two principal demonstrations"
-%%     - B5: S5.1 heading rename (optional, included)
-%%     - B7: S5.6 final-sentence rewrite
-%%
-%% STILL PENDING (not editorial --- empirical / substantive):
-%%   - NGC 5055 marginalized-Upsilon fit (run or disclose)
-%%   - S4.4 disclosure paragraph re joint Upsilon marginalization (Li 2020 prior)
-%%
-%% Numerical correction worth noting: Upsilon_disk(T=4) under the S4.4
-%% piecewise-linear schedule with anchors (0.65, 0.50, 0.40) at T=(2, 5, 9)
-%% evaluates to 0.55 at T=4 (not 0.50). NGC 5055 IS probed at a non-canonical
-%% Upsilon in the steelman, but only 10% above canonical.
-
-\documentclass[11pt]{article}
-
-%% --- Article-mode shim (delete when switching to aastex701) ---
-\usepackage[margin=1in]{geometry}
-\usepackage{xcolor}
-\usepackage{hyperref}
-\usepackage[round]{natbib}
-\usepackage{booktabs}
+\documentclass[linenumbers]{aastex701}
 \usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{caption}
-\bibliographystyle{plainnat}
-\newcommand{\apjs}{ApJS}
-\newcommand{\apj}{ApJ}
-\newcommand{\mnras}{MNRAS}
-\newcommand{\pasj}{PASJ}
-\newcommand{\aj}{AJ}
-\newcommand{\physrep}{Phys.~Rep.}
-\newcommand{\prl}{Phys.~Rev.~Lett.}
-\newcommand{\uat}[2]{#1~(UAT~#2)}
-\setlength{\parskip}{0.4\baselineskip}
-%% --- End shim ---
 
-%% Highlight macro
-\newcommand{\new}[1]{\textcolor{blue!65!black}{#1}}
-
-%% Editor note macro
-\newcommand{\editornote}[1]{\par\medskip\noindent\fcolorbox{red!50!black}{red!5}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\small\textit{Editor note (review only --- not for submission):} #1}}\par\medskip}
-
-%% Figure stub macro --- placeholder where the real figure would be included
-\newcommand{\figstub}[2]{%
-\par\medskip
-\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\centering\small\textit{[\,Figure #1 placeholder --- preserved from v7.1.0\,]}\\[0.4em]
-#2}}
-\par\medskip}
-
-%% Notation
-\newcommand{\Vobs}{V_{\rm obs}}
-\newcommand{\Vbar}{V_{\rm bar}}
-\newcommand{\Vdm}{V_{\rm DM}}
-\newcommand{\Vgas}{V_{\rm gas}}
-\newcommand{\Vdisk}{V_{\rm disk}}
-\newcommand{\Vbulge}{V_{\rm bulge}}
-\newcommand{\Vflat}{V_{\rm flat}}
-\newcommand{\chired}{\chi^2_{\rm red}}
+%% --- Custom macros from v3.2 ---
+%% Mass-to-light ratios
 \newcommand{\Yt}{\Upsilon}
 \newcommand{\Ydisk}{\Upsilon_{\rm disk}}
 \newcommand{\Ybulge}{\Upsilon_{\rm bulge}}
-\newcommand{\Msun}{M_\odot}
+
+%% Velocities
+\newcommand{\Vobs}{V_{\rm obs}}
+\newcommand{\Vbar}{V_{\rm bar}}
+\newcommand{\Vgas}{V_{\rm gas}}
+\newcommand{\Vdisk}{V_{\rm disk}}
+\newcommand{\Vbulge}{V_{\rm bulge}}
+\newcommand{\VDM}{V_{\rm DM}}
+\newcommand{\Vflat}{V_{\rm flat}}
+
+%% Masses
 \newcommand{\Mstar}{M_\star}
 \newcommand{\Mhalo}{M_{\rm halo}}
+\newcommand{\Msun}{M_\odot}
 
-\title{Localized Residual Structure in SPARC Rotation Curves:\\
-A Burkert-Backbone Model with BIC-Selected Shells\\[0.4em]
-\large [PASP resubmission --- full manuscript review, Categories A + B integrated]}
+%% Statistical
+\newcommand{\chired}{\chi^2_{\rm red}}
 
-\author{Ronald Bibb\\
-\small Independent Researcher, Lilburn, GA, USA\\
-\small ORCID: \href{https://orcid.org/0009-0004-1153-2464}{0009-0004-1153-2464} \quad \texttt{ronbibb@gmail.com}}
+%% Review-only macros (no-op for submission; keep markup in source for future revisions)
+\newcommand{\editornote}[1]{}
+\newcommand{\new}[1]{#1}
 
-\date{Review build: 2026-05-13 \quad / \quad Source: halo\_shells v7.1.0}
+%% AASTeX standard
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand\aastex{AAS\TeX}
+\newcommand\latex{La\TeX}
+
+%% Tell graphicx to look in figures/ (and images/ as fallback) subdirectories
+\graphicspath{{./}{figures/}{images/}}
 
 \begin{document}
-\maketitle
 
-%% =========================================================================
-%% ABSTRACT (NEW --- replaces v7.1.0 abstract in full)
-%% =========================================================================
+\title{Localized Residual Structure in SPARC Rotation Curves: A Burkert-Backbone Model
+with BIC-Selected Shells}
 
-\editornote{Entire abstract below is NEW --- replaces the v7.1.0 abstract in full. Word count: $\sim$275 (PASP limit: 300). Opening sentence (highlighted) carries the structural reframe from hypothesis-test to methods framing. \textbf{This build (v2):} Categories A (load-bearing reframes) and B (tone consistency) body changes are now applied throughout the manuscript. Still pending are the substantive $\Upsilon$-marginalization question for NGC~5055 and the corresponding \S\ref{sec:yt} disclosure --- both flagged inline.}
+\author[0009-0004-1153-2464]{Ronald Bibb}
+\affiliation{Independent Researcher, Lilburn, GA, USA}
+\email[show]{ronbibb@gmail.com}
 
 \begin{abstract}
-\new{Smooth dark matter halo profiles do not adequately fit a large fraction of SPARC galaxy rotation curves, and any model-selection procedure for capturing the residual structure must guard against generating features from noise.} We present a framework comprising a Burkert backbone augmented by zero, one, or two Gaussian shells selected by the Bayesian Information Criterion (BIC), with shell width constrained by $\sigma/r \le 0.4$ to prevent shells from mimicking an additional smooth component. Applied to 102 SPARC galaxies ($T = 2$--$9$, 2334 data points), the framework adequately fits 91/102 at $\chired < 1.5$, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW; BIC selects zero shells in 50/102 galaxies, confirming that the parameter penalty effectively suppresses spurious selection. We validate the framework with three controls. Synthetic null tests give a 4.0\% false-positive rate when the underlying profile matches the backbone (Burkert truth) and 63.6\% when it does not (NFW truth) --- a controlled diagnostic of base-profile shape coupling rather than a noise-driven failure. Substituting an Einasto backbone yields 90/102 classification agreement and preserves all primary findings. Stellar mass-to-light variation under a $T$-dependent $\Yt_T$ steelman does not overturn the principal trend. As demonstrations of the framework's sensitivity to halo structure, we report a morphological dependence in shell-bearing fractions (per-galaxy permutation $p = 0.002$; $\rho = -0.347$ under Einasto, $p = 0.0004$) driven by an early-type excess, and a single-galaxy showcase in NGC~5055 where Burkert, NFW, DC14, and Einasto smooth profiles all fail adequacy ($\chired = 8.4$--$30.2$) at the canonical SPARC stellar mass-to-light and BIC-selected shells provide an adequate alternative description \new{(the per-galaxy BIC preference at canonical $\Yt$ weakens to $\Delta\mathrm{BIC} \approx +0.5$, inconclusive, under joint $\Yt$ marginalization at the \citealt{Li2020} prior; the population-level adequacy comparison is computed at canonical $\Yt$ and is not subject to this per-galaxy degeneracy)}. All code, fit tables, and 15 automated validators are available at \href{https://github.com/RonBibb/sparc-halo-shells}{github.com/RonBibb/sparc-halo-shells} and archived at \href{https://doi.org/10.5281/zenodo.20072882}{doi:10.5281/zenodo.20072882}.
+
+We test whether localized residual features in galaxy rotation curves can improve halo modeling beyond conventional smooth profiles. Using 102 SPARC galaxies ($T=2$--$9$), we implement a framework consisting of a Burkert halo plus zero, one, or two Gaussian shells selected by Bayesian Information Criterion (BIC), with shell width constrained by $\sigma/r \le 0.4$ to prevent shells from mimicking an additional smooth halo component. The framework adequately fits 91/102 galaxies, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW; because the framework reduces exactly to Burkert when BIC selects zero shells, the 26-galaxy gap against Burkert is empirical rather than structurally guaranteed. Shell-bearing fraction shows a significant morphology dependence (per-galaxy $T$-label permutation $p_{\rm two-sided} = 0.002$; per-bin Spearman $\rho = -0.833$, $p = 0.010$; Mann-Kendall $p = 0.003$), with a strong $T=2$ excess and lower shell fractions at late types. Synthetic null tests show that smooth-Burkert and smooth-NFW truth cannot reproduce the observed pattern: Burkert-truth false-positive rates remain uniformly low and fall far below real-data shell-bearing fractions in every $T$-bin, while NFW-truth produces high but non-monotonic shell-selection rates inconsistent with the observed trend. Replacing the Burkert backbone with the more flexible Einasto profile preserves both primary findings: the morphology gradient and the requirement for localized structure in NGC~5055, where Burkert, NFW, DC14, and Einasto smooth profiles all fail to reproduce the observed rotation-curve structure. The morphology gradient also survives $T$-dependent stellar mass-to-light variation, refuting stellar-population systematics as a primary driver. We interpret the framework phenomenologically. The results indicate that a significant subset of SPARC rotation curves contains BIC-selected localized residual components not readily absorbed by smooth halo parameterizations alone, though the physical origin of these features remains unresolved.
+
 \end{abstract}
 
-\noindent\textbf{Keywords:} \uat{Galaxy rotation curves}{619} ---
-\uat{Galaxy dark matter halos}{1880} --- \uat{Spiral galaxies}{1560} ---
-\uat{Disk galaxies}{391} --- \uat{Galaxy kinematics}{602}
+\keywords{\uat{Galaxy rotation curves}{619} --- \uat{Dark matter}{353} --- \uat{Dark matter distribution}{356} --- \uat{Disk galaxies}{391} --- \uat{Galaxy dark matter halos}{1880} --- \uat{Bayesian statistics}{1900}}
 
-\vspace{1em}\hrule\vspace{1em}
 
-%% =========================================================================
-%% SECTION 1: INTRODUCTION
-%% =========================================================================
+\section{Introduction}\label{sec:intro}
 
-\section{Introduction}
+Galactic rotation curves provide one of the clearest empirical signatures of mass discrepancies in disk galaxies. Across a wide range of galaxy masses and morphologies, observed circular velocities remain elevated beyond the radius where luminous baryons alone would predict decline. This behavior is conventionally modeled by embedding galaxies in smooth dark matter halos, with commonly used profiles including NFW \citep{NFW1996,NFW1997}, Burkert \citep{Burkert1995}, pseudo-isothermal, Einasto, and related variants. Comprehensive smooth-profile fits to the full SPARC sample using these models have been presented by \citet{Li2020}, who fit seven dark matter halo profiles (pseudo-isothermal, Burkert, NFW, Einasto, DC14, coreNFW, and Lucky13) to all 175 SPARC galaxies via Markov Chain Monte Carlo with cosmologically motivated priors. They found that cored profiles (Burkert, DC14) generally outperform NFW, but no single smooth profile reproduces the halo mass--concentration relation in detail across the sample. Tight relationships between baryonic and dynamical properties have also been characterized statistically across SPARC \citep{Lelli2016,McGaugh2016}, providing a useful population-level reference against which residual structure can be assessed.
 
-%% PARA 1 --- preserved from v7.1.0 with NEW Li 2020 sentence inserted.
+Smooth profiles are powerful because they capture the broad radial structure of dark matter halos with few parameters. However, many high-quality rotation curves also exhibit localized deviations from smooth behavior: inner excesses, mid-disk inflections, shoulders, and outer flattening features (for a review of rotation-curve diversity and core/cusp systematics, see \citealt{deBlok2010}; observational evidence for cores in late-type dwarfs is reviewed in \citealt{Oh2015}). These structures are often absorbed into global halo parameters, attributed to baryonic uncertainty, or treated as object-specific irregularities. The clearest single-galaxy precedents both target the Milky Way: \citet{Sofue2009} identified prominent dips at 3~kpc and 9~kpc in the unified Galactic rotation curve, decomposing them into discrete massive rings (with the 3-kpc feature admitting a competing bar-driven streaming interpretation); \citet{deBoerWeber2011} independently showed that an NFW halo augmented by two donut-like dark matter substructures at 4.2 and 12.4~kpc --- coincident with the local dust ring and the Monoceros ring of stars --- improves the global fit to the Milky Way rotation curve. The present framework can be viewed as a systematic generalization of these approaches --- from identification of localized features in a single galaxy to BIC-based selection across the SPARC sample, with the same bar / warp / triaxiality ambiguities for 1D rotation curves explicitly acknowledged (\S\ref{sec:universal}).
 
-Galactic rotation curves provide one of the clearest empirical signatures of mass discrepancies in disk galaxies. Across a wide range of galaxy masses and morphologies, observed circular velocities remain elevated beyond the radius where luminous baryons alone would predict decline. This behavior is conventionally modeled by embedding galaxies in smooth dark matter halos, with commonly used profiles including NFW \citep{NFW1996,NFW1997}, Burkert \citep{Burkert1995}, pseudo-isothermal, Einasto, and related variants. \new{Comprehensive smooth-profile fits to the full SPARC sample using these models have been presented by \citet{Li2020}, who fit seven dark matter halo profiles (pseudo-isothermal, Burkert, NFW, Einasto, DC14, coreNFW, and Lucky13) to all 175 SPARC galaxies via Markov Chain Monte Carlo with cosmologically motivated priors. They found that cored profiles (Burkert, DC14) generally outperform NFW, but no single smooth profile reproduces the halo mass--concentration relation in detail across the sample.} Tight relationships between baryonic and dynamical properties have also been characterized statistically across SPARC \citep{Lelli2016,McGaugh2016}, providing a useful population-level reference against which residual structure can be assessed.
-
-%% PARA 2 --- preserved from v7.1.0 with NEW Sofue 2009 sentence at end.
-
-Smooth profiles are powerful because they capture the broad radial structure of dark matter halos with few parameters. However, many high-quality rotation curves also exhibit localized deviations from smooth behavior: inner excesses, mid-disk inflections, shoulders, and outer flattening features (for a review of rotation-curve diversity and core/cusp systematics, see \citealt{deBlok2010}; observational evidence for cores in late-type dwarfs is reviewed in \citealt{Oh2015}). These structures are often absorbed into global halo parameters, attributed to baryonic uncertainty, or treated as object-specific irregularities. \new{The clearest single-galaxy precedent is the Milky Way itself: \citet{Sofue2009} identified prominent dips at 3~kpc and 9~kpc in the unified Galactic rotation curve, decomposing them into discrete massive rings (with the 3-kpc feature admitting a competing bar-driven streaming interpretation). The present framework can be viewed as a systematic generalization of this approach --- from visual identification of localized features in a single galaxy to BIC-based selection across the SPARC sample, with the same bar / warp / triaxiality ambiguities for 1D rotation curves explicitly acknowledged (\S\ref{sec:universal}).}
-
-%% PARA 3 --- A1 APPLIED: verb reframe from hypothesis-test to framework-presentation.
-
-Yet if such features occur systematically, then smooth profiles may be missing an architectural component of halo structure rather than merely requiring better parameter tuning. \new{In this work, we present a framework for detecting and characterizing localized residual structure in galaxy rotation curves through a controlled model-selection procedure, and apply it to 102 SPARC galaxies ($T=2$--$9$) as a benchmark. We do not assume that individual features can be uniquely associated with specific historical events, nor that they are necessarily of halo origin. The framework operates at the population level: it asks whether allowing a small number of localized residual components, with strict architectural constraints on their width and amplitude, improves rotation-curve fits in a statistically preferred way across the sample. The morphological dependence of such components, where it occurs, demonstrates the framework's sensitivity to halo structure variation.}
-
-%% PARA 4 --- preserved from v7.1.0.
+Yet if such features occur systematically, then smooth profiles may be missing an architectural component of halo structure rather than merely requiring better parameter tuning. In this work, we present a framework for detecting and characterizing localized residual features in galaxy rotation curves through a controlled model-selection procedure, and apply it to 102 SPARC galaxies ($T=2$--$9$) as a benchmark. We do not assume that individual features can be uniquely associated with specific historical events, nor that they are necessarily of halo origin. The framework operates at the population level: it asks whether allowing a small number of localized residual components, with strict architectural constraints on their width and amplitude, improves rotation-curve fits in a statistically preferred way across the sample. The morphological dependence of such components, where it occurs, demonstrates the framework's sensitivity to halo structure variation.
 
 We construct a minimal architectural extension of a smooth halo model. The base profile is a Burkert halo, chosen because it provides a flexible cored backbone for disk-galaxy rotation curves. We then allow zero, one, or two Gaussian shell components, with shell number selected per galaxy by the Bayesian Information Criterion. The shell width is constrained by $\sigma/r \le 0.4$ so that shells remain localized and cannot simply mimic an additional smooth halo component. When zero shells are selected, the model reduces exactly to Burkert-only. Throughout this paper we use ``shell'' as a generic label for these BIC-selected localized Gaussian residual components in the model. The terminology is not intended to invoke a specific physical origin (tidal-debris stellar shells in the sense of \citealt{Helmi1999}, accretion remnants, or otherwise); the components are mass-density features in the dark matter inferred from rotation-curve residuals, and their physical interpretation is deferred to \S\ref{sec:discussion}.
 
-%% PARA 5 --- preserved from v7.1.0.
-
 We apply this framework to 102 SPARC \citep{Lelli2016} galaxies with morphological types $T=2$--$9$, spanning Sab through Sdm spirals. The comparison models are Burkert-only and free-concentration NFW, each fit on the same data subsets with the same multi-restart optimization procedure.
 
-%% PARA 6 --- A2 APPLIED: demote morphology gradient, lead with adequacy comparison,
-%% insert validation triad inline.
-
-\new{The framework adequately fits 91/102 galaxies, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW; BIC selects zero shells in 50/102 galaxies, indicating that the parameter penalty effectively suppresses spurious selection on data that does not warrant additional components. As demonstrations of the framework's sensitivity to halo structure, we report a morphological dependence in shell-bearing fractions (per-galaxy permutation $p = 0.002$, with a strong $T=2$ excess and lower fractions at late types) and a single-galaxy showcase in NGC~5055, where Burkert, NFW, DC14, and Einasto smooth profiles all fail adequacy while BIC-selected shells resolve the rotation curve. We validate the framework with three controls: synthetic null tests under matched-backbone (Burkert-truth, false-positive rate 4.0\%) and mismatched-backbone (NFW-truth, 63.6\%, a controlled diagnostic of base-profile shape coupling) scenarios; substitution of the Burkert backbone by Einasto, which preserves all primary findings at full statistical strength; and $T$-dependent stellar mass-to-light variation, which does not overturn the principal trend.}
-
-%% PARA 7 --- preserved from v7.1.0.
+The framework adequately fits 91/102 galaxies, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW; BIC selects zero shells in 50/102 galaxies, indicating that the parameter penalty effectively suppresses spurious selection on data that does not warrant additional components. As demonstrations of the framework's sensitivity to halo structure, we report a morphological dependence in shell-bearing fractions (per-galaxy permutation $p = 0.002$, with a strong $T=2$ excess and lower fractions at late types) and a single-galaxy showcase in NGC~5055, where Burkert, NFW, DC14, and Einasto smooth profiles all fail adequacy while BIC-selected shells resolve the rotation curve. We validate the framework with three controls: synthetic null tests under matched-backbone (Burkert-truth, false-positive rate 4.0\%) and mismatched-backbone (NFW-truth, 63.6\%, a controlled diagnostic of base-profile shape coupling) scenarios; substitution of the Burkert backbone by Einasto, which preserves all primary findings at full statistical strength; and $T$-dependent stellar mass-to-light variation, which does not overturn the principal trend.
 
 We emphasize that the present framework is phenomenological. It does not prove that any specific fitted shell corresponds to a particular merger event, satellite accretion episode, or dark-sector structure, and it does not establish that the localized components are necessarily of halo origin --- they could equally reflect localized baryonic features not captured by the SPARC mass-to-light decomposition, kinematic artifacts of triaxial halo or warped-disk geometry, or non-circular motions. One-dimensional rotation curves alone do not contain enough information for such per-galaxy attribution. The claim is more limited but also more robust: BIC-selected localized residual components capture rotation-curve features that smooth profiles systematically miss, and the population-level occurrence of those components varies with morphological type in a manner consistent with hierarchical-assembly expectations and inconsistent with the simplest smooth-halo null scenarios.
 
-%% PARA 8 --- preserved from v7.1.0 (MOND-agnostic positioning).
+The framework is also agnostic with respect to the dark-matter-versus-modified-gravity debate. SPARC has been the primary observational anchor for the radial acceleration relation and MOND-style interpretations \citep[][for a review of MOND in the rotation-curve context, see \citealt{Famaey2012}]{McGaugh2016}, in which rotation-curve regularities are recast as an empirical $g_{\rm obs}(g_{\rm bar})$ relation rather than the mass distribution of an unseen halo. Our analysis treats $V_{\rm DM}^2 \equiv V_{\rm obs}^2 - V_{\rm bar}^2$ as the residual signal to be modeled and does not attempt to distinguish between dark-matter and modified-gravity interpretations of that residual; either can in principle host the localized residual features we report. Whether shell-bearing galaxies depart systematically from the radial acceleration relation, or whether shell radii correlate with the radii at which $g_{\rm obs}/g_{\rm bar}$ deviates most strongly from the relation, are questions left for future work.
 
-The framework is also agnostic with respect to the dark-matter-versus-modified-gravity debate. SPARC has been the primary observational anchor for the radial acceleration relation and MOND-style interpretations \citep[][for a review of MOND in the rotation-curve context, see \citealt{Famaey2012}]{McGaugh2016}, in which rotation-curve regularities are recast as an empirical $g_{\rm obs}(g_{\rm bar})$ relation rather than the mass distribution of an unseen halo. Our analysis treats $V_{\rm DM}^2 \equiv V_{\rm obs}^2 - V_{\rm bar}^2$ as the residual signal to be modeled and does not attempt to distinguish between dark-matter and modified-gravity interpretations of that residual; either can in principle host the localized residual structure we report. Whether shell-bearing galaxies depart systematically from the radial acceleration relation, or whether shell radii correlate with the radii at which $g_{\rm obs}/g_{\rm bar}$ deviates most strongly from the relation, are questions left for future work.
+The paper is organized as follows. Section~\ref{sec:methods} specifies the framework, the fitting procedure, and the smooth-halo comparison models. Section~\ref{sec:results} presents the headline adequacy comparison across the 102-galaxy sample, the morphology-gradient demonstration, the NGC~5055 single-galaxy showcase, the synthetic null tests under two backbone-truth scenarios, and the Einasto-backbone full-sample robustness check. Section~\ref{sec:limitations} discusses limitations, including universal-failure galaxies, base-profile shape coupling, and stellar mass-to-light systematics. Section~\ref{sec:discussion} considers physical interpretations and the framework's relationship to existing smooth-halo work on SPARC. Section~\ref{sec:conclusion} concludes.
 
-\editornote{\textbf{Change 3 APPLIED} (B1): paper-organization paragraph below is new.}
+The scope of this paper is methodological and demonstrative. We introduce a framework, validate it against synthetic-data and backbone-substitution controls, and document its qualitative behavior on the SPARC sample. We do not claim that the localized residual components we detect are necessarily of dark-matter origin, nor that any specific shell can be associated with a particular physical event; 1D rotation curves alone do not contain enough information for such per-galaxy attribution. The principal empirical content of this paper is the population-level adequacy comparison and the controlled diagnostics that support it; per-galaxy interpretations and physical attribution are deferred to follow-on work.
 
-\new{The paper is organized as follows. Section~\ref{sec:methods} specifies the framework, the fitting procedure, and the smooth-halo comparison models. Section~3 presents the headline adequacy comparison across the 102-galaxy sample, the morphology-gradient demonstration, the NGC~5055 single-galaxy showcase, the synthetic null tests under two backbone-truth scenarios, and the Einasto-backbone full-sample robustness check. Section~4 discusses limitations, including universal-failure galaxies, base-profile shape coupling, and stellar mass-to-light systematics. Section~\ref{sec:discussion} considers physical interpretations and the framework's relationship to existing smooth-halo work on SPARC. Section~6 concludes.}
-
-%% =========================================================================
-%% SECTION 2: METHODS
-%% =========================================================================
 
 \section{Methods}\label{sec:methods}
 
 \subsection{Sample and data}
 
-The SPARC database \citep{Lelli2016} provides Spitzer Photometry \& Accurate Rotation Curves for 175 disk galaxies. We restrict our analysis to morphological types $T=2$--$9$, spanning Sab to Sdm spirals, yielding a sample of 102 galaxies with 2334 total rotation curve data points. \new{The original analysis was conducted on $T=2$--$7$ (80 galaxies); we extended to $T=8$--$9$ (an additional 22 galaxies) to test the framework's behavior across the full late-type range where smooth-profile fitting is most challenged by lower stellar-to-gas ratios.}
+The SPARC database \citep{Lelli2016} provides Spitzer Photometry \& Accurate Rotation Curves for 175 disk galaxies. We restrict our analysis to morphological types $T=2$--$9$, spanning Sab to Sdm spirals, yielding a sample of 102 galaxies with 2334 total rotation curve data points. The original analysis was conducted on $T=2$--$7$ (80 galaxies); we extended to $T=8$--$9$ (an additional 22 galaxies) to test the framework's behavior across the full late-type range where smooth-profile fitting is most challenged by lower stellar-to-gas ratios. Sample composition by morphological type is shown in Table~\ref{tab:sample}.
 
 For each galaxy, the SPARC rotation files provide observed velocities $\Vobs(r)$ with uncertainties $\sigma_V(r)$, gas velocity contributions $\Vgas(r)$, stellar disk contributions $\Vdisk(r)$, and stellar bulge contributions $\Vbulge(r)$. The squared baryonic velocity is constructed using fixed mass-to-light ratios:
 \begin{equation}
@@ -184,15 +96,15 @@ For each galaxy, the SPARC rotation files provide observed velocities $\Vobs(r)$
 \end{equation}
 with $\Ydisk = 0.5$ and $\Ybulge = 0.7$ in solar units at $3.6~\mu$m. The dark matter velocity contribution is then
 \begin{equation}
-\Vdm^2(r) = \Vobs^2(r) - \Vbar^2(r).
+\VDM^2(r) = \Vobs^2(r) - \Vbar^2(r).
 \end{equation}
-When $\Vbar^2(r) \ge \Vobs^2(r)$, the inferred $\Vdm^2$ is unphysical. Such points are excluded from the fit.
+When $\Vbar^2(r) \ge \Vobs^2(r)$, the inferred $\VDM^2$ is unphysical. Such points are excluded from the fit.
 
 \subsection{Framework architecture}
 
 We model the dark matter velocity-squared as the sum of a Burkert backbone and zero or more discrete Gaussian shells:
 \begin{equation}
-\Vdm^2(r) = V_{\rm Burkert}^2(r;\, \rho_0, a) + \sum_i V_{{\rm shell},i}^2(r;\, M_i, r_i, \sigma_i).
+\VDM^2(r) = V_{\rm Burkert}^2(r;\, \rho_0, a) + \sum_i V_{{\rm shell},i}^2(r;\, M_i, r_i, \sigma_i).
 \end{equation}
 The Burkert profile is
 \begin{equation}
@@ -204,7 +116,7 @@ M_{\rm shell}(r) &= \tfrac{1}{2} M_i \left[ \mathrm{erf}\!\left(\frac{r - r_i}{\
 V_{\rm shell}^2(r) &= G M_{\rm shell}(r) / r.
 \end{align}
 
-We constrain shells to be physically localized through three architectural choices: (1) $\sigma_i / r_i \le 0.4$, enforced strictly via the reparameterization $\sigma_i = f_i r_i$ with $f_i \in [0.01, 0.4]$ as a box-bounded fit parameter; (2) $10^6~\Msun \le M_i \le 5 \times 10^{10}~\Msun$; (3) $N_{\rm shells} \in \{0, 1, 2\}$. The radial bound on $r_i$ is set in the multi-restart fit procedure to $r_{\rm max} \in \{3, 6, 12\}$~kpc, where each value is used as a separate starting condition and the resulting fits are compared by BIC. When $N_{\rm shells} = 0$, equation (3) reduces to $\Vdm^2 = V_{\rm Burkert}^2$. Because the BIC selection (\S\ref{sec:fitting}) can choose zero shells, the framework reduces exactly to Burkert-only whenever shell components are not warranted by the data.
+We constrain shells to be physically localized through three architectural choices: (1) $\sigma_i / r_i \le 0.4$, enforced strictly via the reparameterization $\sigma_i = f_i r_i$ with $f_i \in [0.01, 0.4]$ as a box-bounded fit parameter; (2) $10^6~\Msun \le M_i \le 5 \times 10^{10}~\Msun$; (3) $N_{\rm shells} \in \{0, 1, 2\}$. The radial bound on $r_i$ is set in the multi-restart fit procedure to $r_{\rm max} \in \{3, 6, 12\}$~kpc, where each value is used as a separate starting condition and the resulting fits are compared by BIC. When $N_{\rm shells} = 0$, equation (3) reduces to $\VDM^2 = V_{\rm Burkert}^2$. Because the BIC selection (\S\ref{sec:fitting}) can choose zero shells, the framework reduces exactly to Burkert-only whenever shell components are not warranted by the data.
 
 \subsection{Fitting procedure}\label{sec:fitting}
 
@@ -226,15 +138,12 @@ We fit two smooth-halo models for direct comparison. \textbf{Burkert-only} uses 
 
 \subsection{Convergence verification}
 
-Single-restart procedures of the kind often used in nonlinear profile fitting (with \texttt{maxfev} defaults of 1{,}000--2{,}500) systematically converged to suboptimal local minima for galaxies requiring shell components. Under single-restart, NGC~2403 yielded a framework BIC of 728, while multi-restart reduced it to 193. NGC~2841 yielded NFW BIC of 1547 under single-restart, reduced to 160 under multi-restart. All fits reported here use the multi-restart procedure.
+Single-restart procedures of the kind often used in nonlinear profile fitting (with \texttt{maxfev} defaults of 1{,}000--2{,}500) systematically converged to suboptimal local minima for galaxies requiring shell components. Under single-restart, NGC~2403 yielded a framework BIC of 728, while multi-restart reduced it to 193. NGC~2841 yielded NFW BIC of 1547 under single-restart, reduced to 160 under multi-restart. All fits reported here use the multi-restart procedure. As a further check on convergence behavior, we verified seed stability for the most adversarial fit class in this paper --- joint $\Yt$ marginalization on NGC~5055 (\S\ref{sec:ngc5055}, \S\ref{sec:yt}) --- where the 0-shell vs 1-shell $\Delta\mathrm{BIC} \approx +0.48$ is reproducible across four independent random seeds $\{1, 42, 99999, 20260513\}$ to within $\pm 0.1$, confirming that the converged BIC structure is not seed-dependent in this regime.
 
-%% =========================================================================
-%% SECTION 3: RESULTS
-%% =========================================================================
 
-\section{Results}
+\section{Results}\label{sec:results}
 
-\subsection{Aggregate fit quality across $T=2$--$9$}
+\subsection{Aggregate fit quality across $T=2$--$9$}\label{sec:aggregate}
 
 Across 102 galaxies and 2334 data points, the framework reduces total $\chi^2$ by 80.0\% versus Burkert-only and 76.2\% versus NFW (Table~\ref{tab:fitquality}). A first property worth flagging before quoting adequacy counts: BIC selects zero shells in 50 of 102 galaxies. In nearly half the sample, the framework reduces exactly to Burkert-only --- the BIC parameter penalty effectively suppresses shells when the data does not warrant them, and the framework is not biased toward over-fitting localized structure. The shell-bearing classifications discussed below therefore reflect genuine model preference, not an architectural tendency to add shells regardless.
 
@@ -242,29 +151,41 @@ We adopt $\chired < 1.5$ as a threshold for adequate fit. This threshold is inte
 
 The framework rescues 39 galaxies that NFW fails and 26 galaxies that Burkert fails. The reverse --- galaxies where NFW or Burkert adequately fit but the framework fails --- occurs in zero galaxies, the latter as a consequence of the framework's superset architecture. At the late-type extreme ($T=9$), Burkert clearly outperforms NFW (median NFW/Burkert $\chi^2$ ratio $\approx 4.6$, Burkert wins per-galaxy in 14 of 16 cases); base-profile coupling concerns are minimal at $T=9$.
 
-\subsection{Win/loss analysis}
+\subsection{Win/loss analysis}\label{sec:winloss}
 
-By $\Delta$BIC, the framework is very strongly preferred ($\Delta\mathrm{BIC} < -10$) over NFW in 53 galaxies and over Burkert in 38 galaxies (Table~\ref{tab:winloss}, Fig.~\ref{fig:deltabic}). The framework-vs-Burkert comparison is structurally asymmetric: when BIC selects zero shells, the framework reduces exactly to Burkert-only, so a ``loss'' against Burkert can occur only via the BIC penalty for a shell that the optimizer attempted to add and BIC then rejected --- a specific kind of inefficiency rather than a substantive failure. The 55 ``inconclusive'' galaxies in the FW-vs-Burkert column reflect this structural relationship: in 50 of those 55, the framework's BIC-selected configuration is zero-shell (i.e., framework = Burkert exactly). The framework-vs-NFW comparison is therefore the genuinely informative test of the architecture's contribution. There, 8 of 102 galaxies BIC-prefer NFW over the framework (6 in ``Other positive'' plus 2 in ``Other strong''), though never very strongly --- the ``Other very strong'' bucket is empty.
+By $\Delta$BIC, the framework is very strongly preferred ($\Delta\mathrm{BIC} < -10$) over NFW in 53 galaxies and over Burkert in 38 galaxies (Table~\ref{tab:winloss}, Figure~\ref{fig:deltabic}). The framework-vs-Burkert comparison is structurally asymmetric: when BIC selects zero shells, the framework reduces exactly to Burkert-only, so a ``loss'' against Burkert can occur only via the BIC penalty for a shell that the optimizer attempted to add and BIC then rejected --- a specific kind of inefficiency rather than a substantive failure. The 55 ``inconclusive'' galaxies in the FW-vs-Burkert column reflect this structural relationship: in 50 of those 55, the framework's BIC-selected configuration is zero-shell (i.e., framework = Burkert exactly). The framework-vs-NFW comparison is therefore the genuinely informative test of the architecture's contribution. There, 8 of 102 galaxies BIC-prefer NFW over the framework (6 in ``Other positive'' plus 2 in ``Other strong''), though never very strongly --- the ``Other very strong'' bucket is empty.
 
 The asymmetry between FW-vs-NFW preference (53 strongly preferring FW vs 8 preferring NFW, none very strongly) is large but not absolute. Median $\Delta$BIC values for the FW-vs-NFW comparison per Table~\ref{tab:winloss} bucket quantify the depth of preference within each verdict: $-34.8$ for ``FW very strong'' ($n=53$), $-7.7$ for ``FW strong'' ($n=6$), $-3.2$ for ``FW positive'' ($n=16$), $-0.7$ for ``Inconclusive'' ($n=19$), $+3.2$ for ``Other positive'' ($n=6$), $+8.5$ for ``Other strong'' ($n=2$). The asymmetry is therefore not just in counts: when the framework wins it typically wins by a large BIC margin, whereas when NFW wins the margin is shallow.
 
 The 8 NFW-preferring galaxies do not form a distinctive subpopulation by morphology, mass, or kinematics. T-type, $\Vflat$, and $\log M_\star$ distributions in the 8 are consistent with the full sample; notably none are at $T=2$ (where shell-bearing fraction is highest), and otherwise they scatter across $T=3$--$9$. The 8 split into two structurally different subsets. In 4 galaxies (NGC~4157, NGC~3992, UGC~06446, NGC~4183) BIC selects zero shells, so the framework reduces exactly to Burkert; the NFW preference in these cases reflects a Burkert-versus-NFW disagreement on the smooth-profile shape, not a shell-related failure. In the remaining 4 (UGC~02259, UGC~00128, UGC~08490, UGC~12506) the framework selects shells but the BIC parameter penalty tips the comparison toward NFW; in 3 of these 4 the framework's $\chired$ is in fact lower than NFW's, so the NFW preference reflects BIC's parsimony pressure rather than a genuine fit-quality advantage. Seven of the 8 have both NFW and the framework adequate at the stricter $\chired < 1.0$ threshold, indicating these are galaxies for which multiple smooth-profile descriptions fit comparably well and the BIC margin is genuinely soft.
 
-\figstub{1}{$\Delta$BIC distribution across the SPARC $T=2$--$9$ sample ($n=102$). The histograms make visible the asymmetry: zero galaxies fall in the very strong evidence against framework region ($\Delta\mathrm{BIC} > +10$) for either comparison. Framework vs.\ Burkert: FW very strong 38, strong 6, positive 3, inconclusive 55, other 0. Framework vs.\ NFW: FW very strong 53, strong 6, positive 16, inconclusive 19, other positive 6, other strong 2, other very strong 0.}\label{fig:deltabic}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figure5_dbic_histogram.pdf}
+\caption{$\Delta$BIC distribution across the SPARC $T=2$--$9$ sample ($n=102$). The histograms make visible the asymmetry: zero galaxies fall in the very strong evidence against framework region ($\Delta\mathrm{BIC} > +10$) for either comparison. Framework vs.\ Burkert: FW very strong 38, strong 6, positive 3, inconclusive 55, other 0. Framework vs.\ NFW: FW very strong 53, strong 6, positive 16, inconclusive 19, other positive 6, other strong 2, other very strong 0.}
+\label{fig:deltabic}
+\end{figure}
 
 \subsection{T-type morphology gradient}\label{sec:morph}
 
-Shell-bearing fraction varies systematically with morphological type (Table~\ref{tab:morphology}, Fig.~\ref{fig:morphgrad}). The strongest test of the trend's significance is a permutation test in which T-labels are shuffled across the 102 individual galaxies (10{,}000 resamples, holding shell-bearing flags fixed): observed Spearman $\rho = -0.83$ against a null distribution centered on zero, giving $p_{\rm one-sided} = 0.001$, $p_{\rm two-sided} = 0.002$. This is the most independent of our trend tests because it operates on per-galaxy data rather than per-bin summaries. As supporting evidence, two rank-based monotonic trend tests on the per-bin fractions also reject the no-trend null (Spearman analytic $p = 0.010$; Mann-Kendall $p = 0.003$); these two tests are not independent of each other because both operate on the same eight-bin vector. A non-parametric bootstrap (10{,}000 galaxy-level resamples) gives a 95\% confidence interval on $\rho$ of $[-0.95, -0.22]$, excluding zero.
+Shell-bearing fraction varies systematically with morphological type (Table~\ref{tab:morphology}, Figure~\ref{fig:morphgrad}). The strongest test of the trend's significance is a permutation test in which T-labels are shuffled across the 102 individual galaxies (10{,}000 resamples, holding shell-bearing flags fixed): observed Spearman $\rho = -0.83$ against a null distribution centered on zero, giving $p_{\rm one-sided} = 0.001$, $p_{\rm two-sided} = 0.002$. This is the most independent of our trend tests because it operates on per-galaxy data rather than per-bin summaries. As supporting evidence, two rank-based monotonic trend tests on the per-bin fractions also reject the no-trend null (Spearman analytic $p = 0.010$; Mann-Kendall $p = 0.003$); these two tests are not independent of each other because both operate on the same eight-bin vector. A non-parametric bootstrap (10{,}000 galaxy-level resamples) gives a 95\% confidence interval on $\rho$ of $[-0.95, -0.22]$, excluding zero.
 
 The shape of the gradient is worth describing precisely. $T=2$ (Sab) galaxies exhibit shell-bearing fraction of 100\%, while $T=9$ (Sdm) --- disk-dominated dwarfs --- show 31\%, the lowest in the sample. The intermediate types $T=3$--$6$ cluster tightly near 54\% (range 53--56\%), then drop to 36\% at $T=7$, 33\% at $T=8$ ($n=6$), and 31\% at $T=9$. The trend signal is therefore driven primarily by the $T=2$ excess and the late-type ($T=7, T=8, T=9$) decline; the middle of the gradient is essentially flat. We use ``morphology gradient'' to refer to this overall pattern, not to claim per-bin monotonicity.
 
-As a robustness check on the gradient's dependence on the $T=2$ bin ($n=9$), we re-ran the trend tests excluding $T=2$ ($T=3$--$9$, $n=93$, 43 shell-bearing). Per-galaxy permutation gives $p_{\rm two-sided} = 0.094$; per-bin Spearman $\rho = -0.75, p = 0.052$; Mann-Kendall $p = 0.069$. The full-sample monotonic-trend tests are therefore dominated by the $T=2$ excess. The empirical pattern is more accurately described as two contrasts that are independently significant: $T=2$ (100\%) vs $T=3$--$6$ ($31/57 = 54\%$) gives Fisher one-sided $p = 0.007$, and $T=3$--$6$ (54\%) vs $T=7$--$9$ ($12/36 = 33\%$) gives Fisher one-sided $p = 0.038$. The late-type real-data fraction (33\%) also exceeds the Burkert-truth null expectation ($1/58 = 1.7\%$) at Fisher one-sided $p = 2.5 \times 10^{-5}$. Both pieces of the gradient --- early-type excess and late-type deficit --- are statistically robust independently of each other, even though the full-sample monotonic-trend tests depend on $T=2$ carrying most of the dynamic range.
+\textbf{$T=2$-excluded sensitivity check.} As a robustness check on the gradient's dependence on the $T=2$ bin ($n=9$), we re-ran the trend tests excluding $T=2$ ($T=3$--$9$, $n=93$, 43 shell-bearing). Per-galaxy permutation gives $p_{\rm two-sided} = 0.094$; per-bin Spearman $\rho = -0.75, p = 0.052$; Mann-Kendall $p = 0.069$. The full-sample monotonic-trend tests are therefore dominated by the $T=2$ excess. The empirical pattern is more accurately described as two contrasts that are independently significant: $T=2$ (100\%) vs $T=3$--$6$ ($31/57 = 54\%$) gives Fisher one-sided $p = 0.007$, and $T=3$--$6$ (54\%) vs $T=7$--$9$ ($12/36 = 33\%$) gives Fisher one-sided $p = 0.038$. The late-type real-data fraction (33\%) also exceeds the Burkert-truth null expectation ($1/58 = 1.7\%$) at Fisher one-sided $p = 2.5 \times 10^{-5}$. Both pieces of the gradient --- early-type excess and late-type deficit --- are statistically robust independently of each other, even though the full-sample monotonic-trend tests depend on $T=2$ carrying most of the dynamic range.
 
-\new{Hierarchical assembly is one plausible physical interpretation of a morphology-dependent shell-bearing fraction: early-type galaxies have richer accretion histories than late-type galaxies, plausibly leaving more abundant localized halo features. The framework's morphology-dependent selection behavior is consistent with this interpretation, but the analysis itself is agnostic among the possibilities considered in \S\ref{sec:interp}; we report the population-level association without claiming a unique causal link to any specific event.}
+Hierarchical assembly is one plausible physical interpretation of a morphology-dependent shell-bearing fraction: early-type galaxies have richer accretion histories than late-type galaxies, plausibly leaving more abundant localized halo features. The framework's morphology-dependent selection behavior is consistent with this interpretation, but the analysis itself is agnostic among the possibilities considered in \S\ref{sec:interp}; we report the population-level association without claiming a unique causal link to any specific event.
 
-\figstub{2}{Shell-bearing fraction in real SPARC data vs synthetic-null expectation by morphological type, extended to $T=2$--$9$ ($n=102$ galaxies). Errorbars are $1\sigma$ binomial counting uncertainties. Fisher one-sided $p$-values (where null comparison was run, $T=2$--$7$) annotated above each bin. Real data exceed Burkert-truth null at $\ge 10\times$ in $T=2$--$6$ bins.}\label{fig:morphgrad}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figure4_shellfrac_vs_T.pdf}
+\caption{Shell-bearing fraction in real SPARC data vs synthetic-null expectation by morphological type, extended to $T=2$--$9$ ($n=102$ galaxies). Errorbars are $1\sigma$ binomial counting uncertainties. Fisher one-sided $p$-values (where null comparison was run, $T=2$--$7$) annotated above each bin. Real data exceed Burkert-truth null at $\ge 10\times$ in $T=2$--$6$ bins.}
+\label{fig:morphgrad}
+\end{figure}
 
 \subsection{Single-galaxy showcase: NGC~5055}\label{sec:ngc5055}
+
+We note upfront that the per-galaxy BIC preference reported below is sensitive to $\Yt$ marginalization; the full disclosure is in \S\ref{sec:yt}, and the load-bearing claim of this paper is the population-level adequacy comparison (\S\ref{sec:morph}), not this single-galaxy result.
 
 NGC~5055 (M~63), at distance $D = 9.90$~Mpc, has T-type 4 and asymptotic flat rotation velocity $\Vflat = 179$~km/s. We use it as a single-galaxy showcase because its rotation curve has been well-studied across multiple decades and its inner kinematic structure provides one of the cleanest tests in this sample of where smooth halos succeed and fail. The case is illustrative rather than load-bearing: NGC~5055 demonstrates at the individual-galaxy level a pattern that the morphology-gradient analysis (\S\ref{sec:morph}) and the universal-failure subset (\S\ref{sec:universal}) establish at the population level. Our headline statistical claims rest on the 102-galaxy sample, not on this one object.
 
@@ -272,21 +193,24 @@ The rotation curve includes 22 usable data points. Fitting Burkert, NFW, and the
 
 We do not claim per-galaxy event identification: the localized component could represent a genuine mass concentration of any physical origin, a localized baryonic feature not captured by the SPARC stellar/gas decomposition, or a kinematic artifact of triaxial halo or warped-disk geometry that 1D azimuthal averaging cannot disentangle from intrinsic mass distribution. The $\chired$ comparison establishes that smooth halos (Burkert, NFW, DC14) cannot adequately fit this rotation curve; it does not establish what physical structure the localized component actually is.
 
-\new{\textbf{Joint marginalization of $\Ydisk$ and $\Ybulge$.} The single-galaxy BIC comparison in Table~\ref{tab:ngc5055} fixes the stellar mass-to-light ratios at their canonical SPARC values, $\Ydisk = 0.5$ and $\Ybulge = 0.7$. To test whether the shell preference is robust against per-galaxy $\Yt$ variation in the direction that would weaken rather than strengthen it, we re-ran the framework on NGC~5055 with $\Ydisk$ and $\Ybulge$ jointly free under Gaussian log-priors at the \citet{Li2020} convention: $\log_{10}(\Ydisk) \sim \mathcal{N}(\log_{10}(0.5), 0.1~\mathrm{dex})$ and $\log_{10}(\Ybulge) \sim \mathcal{N}(\log_{10}(0.7), 0.1~\mathrm{dex})$. The fitting procedure uses \texttt{scipy.optimize.differential\_evolution} for the global search followed by residual-seeded multi-restart L-BFGS-B; the sanity-check mode (\texttt{--fix-upsilon}) pins $\Yt$ at canonical and matches the Burkert-only canonical BIC to within $\Delta\mathrm{BIC} = +0.5$, verifying that the model implementation matches the canonical pipeline at fixed $\Yt$. Reproduction code is at \texttt{scripts/ngc5055\_marginalized\_upsilon.py}.}
+\textbf{Joint marginalization of $\Ydisk$ and $\Ybulge$.} The single-galaxy BIC comparison in Table~\ref{tab:ngc5055} fixes the stellar mass-to-light ratios at their canonical SPARC values, $\Ydisk = 0.5$ and $\Ybulge = 0.7$. To test whether the shell preference is robust against per-galaxy $\Yt$ variation in the direction that would weaken rather than strengthen it, we re-ran the framework on NGC~5055 with $\Ydisk$ and $\Ybulge$ jointly free under Gaussian log-priors at the \citet{Li2020} convention: $\log_{10}(\Ydisk) \sim \mathcal{N}(\log_{10}(0.5), 0.1~\mathrm{dex})$ and $\log_{10}(\Ybulge) \sim \mathcal{N}(\log_{10}(0.7), 0.1~\mathrm{dex})$. The fitting procedure uses \texttt{scipy.optimize.differential\_evolution} for the global search followed by residual-seeded multi-restart L-BFGS-B; the sanity-check mode (\texttt{--fix-upsilon}) pins $\Yt$ at canonical and matches the Burkert-only canonical BIC to within $\Delta\mathrm{BIC} = +0.5$, verifying that the model implementation matches the canonical pipeline at fixed $\Yt$. Reproduction code is at \texttt{scripts/ngc5055\_marginalized\_upsilon.py}.
 
-\new{Under joint marginalization, the per-galaxy BIC preference for shells at NGC~5055 weakens substantially. The marginalized Burkert-only fit reaches $\chired \approx 1.60$ at $\Ydisk \approx 0.43$ (within the prior's $\sim 1\sigma$ range), and the marginalized framework with one shell reaches $\chired \approx 1.27$ at similar $\Ydisk$. $\Ybulge$ returns to its prior mean of $0.7$ across all configurations (fitted $\Ybulge = 0.700$ to four decimal places), as expected: NGC~5055 is bulgeless in the SPARC photometric decomposition ($\Vbulge = 0$ at every radius in the published rotmod file), so $\Ybulge$ carries no information about the fit and the optimizer returns it to the prior mean. The degeneracy reported below is therefore specifically in the disk component, not a $\Ydisk$--$\Ybulge$ redistribution. The BIC difference between Burkert-only and the one-shell framework is $\Delta\mathrm{BIC} \approx +0.5$ favoring the shell-bearing fit --- below the $\Delta\mathrm{BIC} = 2$ threshold for positive preference and far below the fixed-$\Yt$ canonical value of $\Delta\mathrm{BIC} \approx 157$. The marginalized two-shell fit recovers a canonical-like inner shell at $r \approx 14$~kpc with $M \approx 3.5 \times 10^{10}~\Msun$ (compare the fixed-$\Yt$ result at $r = 12$~kpc, $M = 3.78 \times 10^{10}~\Msun$), demonstrating that the canonical shell basin is still detectable under marginalization but is no longer decisively preferred over a smooth-halo solution at depressed $\Ydisk$.}
+Under joint marginalization, the per-galaxy BIC preference for shells at NGC~5055 weakens substantially. The marginalized Burkert-only fit reaches $\chired \approx 1.60$ at $\Ydisk \approx 0.43$ (within the prior's $\sim 1\sigma$ range), and the marginalized framework with one shell reaches $\chired \approx 1.27$ at similar $\Ydisk$. $\Ybulge$ returns to its prior mean of $0.7$ across all configurations (fitted $\Ybulge = 0.700$ to four decimal places), as expected: NGC~5055 is bulgeless in the SPARC photometric decomposition ($\Vbulge = 0$ at every radius in the published rotmod file), so $\Ybulge$ carries no information about the fit and the optimizer returns it to the prior mean. The degeneracy reported below is therefore specifically in the disk component, not a $\Ydisk$--$\Ybulge$ redistribution.
 
-\new{The physical interpretation is that NGC~5055's rotation curve admits, at the single-galaxy level, two near-equivalent solutions: (a) Burkert with $\Ydisk$ approximately one prior $\sigma$ below canonical and no shell, and (b) Burkert with canonical $\Ydisk$ and a shell at $r \approx 12$~kpc. Reducing $\Ydisk$ shrinks $\Vbar^2$ enough that the smooth Burkert profile can absorb the residual structure the shell otherwise captures. BIC, which scores both fits with the data-only $\chi^2$ and the appropriate parameter penalty, cannot distinguish them on this galaxy under the Li~2020 prior.}
+The BIC difference between Burkert-only and the one-shell framework is $\Delta\mathrm{BIC} \approx +0.5$ favoring the shell-bearing fit --- below the $\Delta\mathrm{BIC} = 2$ threshold for positive preference and far below the fixed-$\Yt$ canonical value of $\Delta\mathrm{BIC} \approx 157$. The marginalized two-shell fit recovers a canonical-like inner shell at $r \approx 14$~kpc with $M \approx 3.5 \times 10^{10}~\Msun$ (compare the fixed-$\Yt$ result at $r = 12$~kpc, $M = 3.78 \times 10^{10}~\Msun$), demonstrating that the canonical shell basin is still detectable under marginalization but is no longer decisively preferred over a smooth-halo solution at depressed $\Ydisk$.
 
-\new{This degeneracy is consistent with --- and helps delineate the scope of --- the architectural claim in this section. The single-galaxy BIC preference reported in Table~\ref{tab:ngc5055} is real at the canonical SPARC $\Yt$ convention, but is not robust to joint per-galaxy $\Yt$ marginalization toward lower $\Ydisk$. NGC~5055 should therefore be read as illustrating the framework's architectural behavior --- what residual structure looks like, how a Gaussian shell parameterization absorbs it, what $M$, $r$, and $\sigma$ values emerge --- rather than as a per-galaxy detection of localized structure independent of $\Yt$. The framework's load-bearing claim is the population-level adequacy comparison (91/102 framework vs 65/102 Burkert-only; \S\ref{sec:morph}), which is computed at canonical $\Yt$ across the full sample and is not subject to this per-galaxy degeneracy. The full disclosure of how per-galaxy $\Yt$ marginalization interacts with single-galaxy versus population-level conclusions is in \S\ref{sec:yt}.}
+The physical interpretation is that NGC~5055's rotation curve admits, at the single-galaxy level, two near-equivalent solutions: (a) Burkert with $\Ydisk$ approximately one prior $\sigma$ below canonical and no shell, and (b) Burkert with canonical $\Ydisk$ and a shell at $r \approx 12$~kpc. Reducing $\Ydisk$ shrinks $\Vbar^2$ enough that the smooth Burkert profile can absorb the residual structure the shell otherwise captures. BIC, which scores both fits with the data-only $\chi^2$ and the appropriate parameter penalty, cannot distinguish them on this galaxy under the Li~2020 prior.
 
-\editornote{\textbf{Status of pending item}: the joint $\Yt$ marginalization test on NGC~5055 has been executed (script: \texttt{scripts/ngc5055\_marginalized\_upsilon.py}; results CSV: \texttt{data/ngc5055\_marginalized\_upsilon\_results.csv}; sanity-check CSV: \texttt{data/ngc5055\_fixed\_upsilon\_recheck\_results.csv}). The four blue paragraphs above integrate the result. \\ \textbf{Seed-robustness check (added 2026-05-13):} the script was rerun with random seeds $\{1, 42, 99999, 20260513\}$. The 0-shell and 1-shell BIC values were bit-stable across all four seeds: BIC$_{\rm 0-shell} = 41.10$ and BIC$_{\rm 1-shell} = 40.62$ to four decimal places, giving $\Delta\mathrm{BIC} = +0.48$ in every run. Fit $\Ydisk$ values were also seed-stable ($0.4323$ for 0-shell, $0.4156$ for 1-shell). The 2-shell BIC varies (range $35.79$--$49.71$ across seeds) reflecting near-degenerate overfit minima, but is irrelevant to the \S\ref{sec:ngc5055} verdict. The qualitative result --- inconclusive between 0-shell and 1-shell under marginalization --- is locked. Recommended additional sanity check on local Mac: run once to confirm SPARC rotmod file paths and Python/scipy/numpy versions reproduce these numbers within $\pm 0.1$ BIC units before submission.}
+This degeneracy is consistent with --- and helps delineate the scope of --- the architectural claim in this section. The single-galaxy BIC preference reported in Table~\ref{tab:ngc5055} is real at the canonical SPARC $\Yt$ convention, but is not robust to joint per-galaxy $\Yt$ marginalization toward lower $\Ydisk$. NGC~5055 should therefore be read as illustrating the framework's architectural behavior --- what residual structure looks like, how a Gaussian shell parameterization absorbs it, what $M$, $r$, and $\sigma$ values emerge --- rather than as a per-galaxy detection of localized structure independent of $\Yt$. The framework's load-bearing claim is the population-level adequacy comparison (91/102 framework vs 65/102 Burkert-only; \S\ref{sec:morph}), which is computed at canonical $\Yt$ across the full sample and is not subject to this per-galaxy degeneracy. The full disclosure of how per-galaxy $\Yt$ marginalization interacts with single-galaxy versus population-level conclusions is in \S\ref{sec:yt}.
 
 To test whether a more sophisticated cosmologically-motivated smooth profile can capture NGC~5055's structure, we additionally fit the DC14 \citep{DiCintio2014a,DiCintio2014b} feedback-modified profile, which transforms cusps into cores at intermediate stellar mass ratios. DC14 with three free parameters ($\rho_s, r_s, X = \log_{10}(\Mstar/\Mhalo)$) achieves $\chired = 9.01$, essentially identical to Burkert's 9.53. The optimizer converged on a strongly cored profile ($\gamma = 0.24$) with $X = -2.54$, well within the DC14-valid range, confirming that the failure is not due to NFW-vs-Burkert shape choice. The framework with one BIC-selected shell at the same radius achieves $\chired = 1.46$.
 
-\editornote{\textbf{Empirical / substantive item still pending} (not editorial): consider running NGC~5055 with $\Ydisk$ free under a Gaussian prior at $0.5 \pm 0.1$~dex (Li 2020 convention). The fast result protects the showcase against a likely referee question about per-galaxy joint $\Yt$ marginalization. If shell preference holds, this section strengthens; if it doesn't, the disclosure can be added to \S\ref{sec:yt} before referee feedback creates the dynamic. Decision deferred. \\ \textbf{Resolved 2026-05-13:} test executed. Result integrated into the four blue paragraphs above; the marginalized $\Delta\mathrm{BIC}$ is $\approx +0.5$ (inconclusive). The section now reads as illustrative-architectural rather than per-galaxy-decisive, and points to \S\ref{sec:yt} for the full population-vs-per-galaxy scope discussion.}
-
-\figstub{3}{NGC~5055 (M~63): single-galaxy showcase. Burkert-only and NFW both miss the structure at $r \approx 10$--$14$~kpc; the framework with a single BIC-selected shell at $r = 12$~kpc captures it cleanly.}\label{fig:ngc5055}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{figure2_ngc5055_showcase.png}
+\caption{NGC~5055 (M~63): single-galaxy showcase. Burkert-only and NFW both miss the structure at $r \approx 10$--$14$~kpc; the framework with a single BIC-selected shell at $r = 12$~kpc captures it cleanly.}
+\label{fig:ngc5055}
+\end{figure}
 
 \subsection{Synthetic smooth-halo null test}\label{sec:nulltest}
 
@@ -298,13 +222,22 @@ When the underlying smooth halo is NFW-shaped --- i.e., cusped, with different i
 
 The per-T-type comparison (Table~\ref{tab:morphology}) shows that the $T=2$ shell-bearing fraction (100\%) is overwhelmingly significant against null expectation (Fisher one-sided $p \approx 10^{-6}$): no smooth-halo truth that we tested produces the observed 9-of-9 shell-bearing pattern at $T=2$. We caveat this only to say: smooth-halo truths outside our tested set (Burkert and NFW) --- for example, pseudo-isothermal with extreme parameters or generalized NFW with steep inner slopes --- could in principle yield different null distributions. The argument is therefore against the two simplest smooth-truth scenarios, not against the universe of all possible smooth halos. Several intermediate bins ($T=3, T=4, T=5, T=6$) also show real shell-bearing fractions significantly above Burkert-null expectation. At the late-type end, two findings emerge from the $T=8$--$9$ extension. First, $T=8$ real shell-bearing (33\%, $n=6$) sits between the Burkert-null (11\%) and NFW-null (50\%) expectations; the small sample size limits the statistical power of any per-bin claim, but the observed value is consistent with the late-type decline pattern rather than with a pure shape-mismatch artifact. Second, $T=9$ real shell-bearing (31\%) sits between the Burkert-null (13\%) and NFW-null (67\%) expectations, and is significantly below the NFW-null at Fisher one-sided $p = 0.05$; this is consistent with the picture that at $T=9$ --- where Burkert clearly outperforms NFW as the smooth model (median NFW/Burkert $\chi^2$ ratio $\approx 4.6$) --- the framework is not compensating for cusp-vs-core mismatch and the BIC suppresses shells correctly in 11/16 galaxies.
 
-A subtler but informative finding concerns the structure of the Burkert-truth false-positive rate across T-type. Per-bin rates are uniformly low: 5\% at $T=2$ (1/20), 5\% at $T=3$ (1/20), 0\% at $T=4$ (0/25), 0\% at $T=5$ (0/25), 4\% at $T=6$ (1/25), 0\% at $T=7$ (0/25), 11\% at $T=8$ (2/18), and 13\% at $T=9$ (2/15). With strict $\sigma / r_{\rm shell} \le 0.4$ enforcement, the Burkert-truth FP rate is bounded at $\le 5\%$ in 6 of 8 T-bins, with isolated higher values at $T=8$ (11\%) and $T=9$ (13\%) plausibly reflecting lower S/N in late-type rotation curves. The rate is uncorrelated with T-type (Spearman $\rho = +0.33, p = 0.42$). Critically, the real-data shell-bearing fractions of 31--100\% per T-bin exceed the corresponding Burkert-truth FP rates by factors of $\ge 10\times$ at $T=2$--$6$ and at least $2$--$3\times$ at $T=8$ and $T=9$: at $T=2$ the contrast is 100\% vs 5\%; at $T=9$ it is 31\% vs 13\%. No T-bin has a real-data shell-bearing fraction within plausible noise distance of Burkert-truth null, ruling out smooth-Burkert truth as the dominant driver of the gradient at every point along the morphological range, not merely on average. The NFW-truth null FP rate by contrast is high and varies non-monotonically with T-type (range 40--90\%); it could not produce the strong negative real trend either, since the largest NFW-null rates occur at early-to-mid types where the Burkert backbone is most mismatched, not at the latest types where the gradient is lowest.
+A subtler but informative finding concerns the structure of the Burkert-truth false-positive rate across T-type. Per-bin rates are uniformly low: 5\% at $T=2$ (1/20), 5\% at $T=3$ (1/20), 0\% at $T=4$ (0/25), 0\% at $T=5$ (0/25), 4\% at $T=6$ (1/25), 0\% at $T=7$ (0/25), 11\% at $T=8$ (2/18), and 13\% at $T=9$ (2/15). With strict $\sigma / r_{\rm shell} \le 0.4$ enforcement, the Burkert-truth FP rate is bounded at $\le 5\%$ in 6 of 8 T-bins, with isolated higher values at $T=8$ (11\%) and $T=9$ (13\%) plausibly reflecting lower S/N in late-type rotation curves. The rate is uncorrelated with T-type (Spearman $\rho = +0.33, p = 0.42$).
 
-\subsection{Rotation curves and fits --- example grids}
+Critically, the real-data shell-bearing fractions of 31--100\% per T-bin exceed the corresponding Burkert-truth FP rates by factors of $\ge 10\times$ at $T=2$--$6$ and at least $2$--$3\times$ at $T=8$ and $T=9$: at $T=2$ the contrast is 100\% vs 5\%; at $T=9$ it is 31\% vs 13\%. No T-bin has a real-data shell-bearing fraction within plausible noise distance of Burkert-truth null, ruling out smooth-Burkert truth as the dominant driver of the gradient at every point along the morphological range, not merely on average.
+
+The NFW-truth null FP rate by contrast is high and varies non-monotonically with T-type (range 40--90\%); it could not produce the strong negative real trend either, since the largest NFW-null rates occur at early-to-mid types where the Burkert backbone is most mismatched, not at the latest types where the gradient is lowest.
+
+\subsection{Rotation curves and fits --- example grids}\label{sec:examplegrids}
 
 Figure~\ref{fig:t4grid} (and analogous panels for $T=2, 3, 5, 6, 7, 8, 9$ in the supplementary figure set) shows the rotation curves and fits across the morphological-type stratification.
 
-\figstub{4}{T=4 panel (analogous panels for $T=2, 3, 5, 6, 7, 8, 9$ are in the supplementary figure set). Burkert-only and framework fits for the 17 $T=4$ (Sb) galaxies. Excluded points (where $\Vbar^2 \ge \Vobs^2$) marked. The framework selects shells in 9 of 17 galaxies and reduces total $\chi^2$ by 81.8\% versus Burkert-only on this bin.}\label{fig:t4grid}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{figure1_T4_example_grid.png}
+\caption{$T=4$ panel (analogous panels for $T=2, 3, 5, 6, 7, 8, 9$ are in the supplementary figure set). Burkert-only and framework fits for the 17 $T=4$ (Sb) galaxies. Excluded points (where $\Vbar^2 \ge \Vobs^2$) marked. The framework selects shells in 9 of 17 galaxies and reduces total $\chi^2$ by 81.8\% versus Burkert-only on this bin.}
+\label{fig:t4grid}
+\end{figure}
 
 \subsection{Robustness to backbone choice}\label{sec:einasto}
 
@@ -316,27 +249,33 @@ Three findings emerge. \textbf{First, shell selection is largely backbone-indepe
 
 \textbf{Third, the morphology gradient is preserved at full-sample statistical strength.} Per-T-bin shell-bearing fractions under Einasto: 89\% at $T=2$ (8/9), 55\% at $T=3$ (6/11), 47\% at $T=4$ (8/17), 46\% at $T=5$ (6/13), 50\% at $T=6$ (8/16), 29\% at $T=7$ (4/14), 17\% at $T=8$ (1/6), 19\% at $T=9$ (3/16). The shape of the gradient is qualitatively identical to the Burkert-backbone result (\S\ref{sec:morph}): $T=2$ high, $T=3$--$6$ cluster near 50\%, $T=7$--$9$ low. The per-T-bin Spearman trend test gives $\rho = -0.905, p = 0.002$ under Einasto, compared to $\rho = -0.833, p = 0.010$ under Burkert; per-galaxy Spearman gives $\rho = -0.347, p = 0.0004$ under Einasto, compared to $\rho = -0.296, p = 0.003$ under Burkert. The Einasto-backbone trend is statistically significant at slightly higher level than the Burkert-backbone trend, with the early-type excess and late-type decline both preserved ($T=2$ drops from 100\% to 89\%, one galaxy; $T=9$ drops from 31\% to 19\%, two galaxies).
 
-We conclude that the framework's \new{two principal demonstrations} --- the morphology gradient (\S\ref{sec:morph}) and the architectural NGC~5055 demonstration (\S\ref{sec:ngc5055}) --- are robust to replacing the Burkert backbone with the more flexible Einasto profile. The remaining base-profile-coupling concerns discussed in \S\ref{sec:coupling} still apply for fully novel halo families (e.g., backbone profiles outside the cored-cuspy class), but the most natural and most flexible alternative within that class produces the same qualitative results at full-sample statistical strength. A second robustness check, against T-dependent stellar mass-to-light variation, is reported in \S\ref{sec:yt} and yields the same conclusion.
+\textbf{Fourth, the framework's adequacy advantage is preserved under the Einasto backbone.} Across the full 102-galaxy sample, the Einasto-backbone framework achieves $\chired < 1.5$ in 89/102 galaxies (compared with 91/102 under the Burkert-backbone framework), and Einasto-only smooth-halo fitting achieves $\chired < 1.5$ in 72/102 galaxies (compared with 65/102 under Burkert-only). The framework's adequacy advantage over its smooth-halo counterpart compresses from 26 galaxies under Burkert to 17 galaxies under Einasto --- Einasto's three-parameter flexibility absorbs structure that BIC-selected shells captured under the more rigid two-parameter Burkert backbone --- but remains substantial. The load-bearing adequacy comparison is therefore not an artifact of Burkert's specific two-parameter shape; it persists under the more flexible three-parameter Einasto profile. Values are computed from \texttt{data/einasto\_full\_sample\_results.csv} (\S\ref{sec:dataavail}).
 
-%% =========================================================================
-%% SECTION 4: LIMITATIONS
-%% =========================================================================
+We conclude that the framework's two principal demonstrations --- the morphology gradient (\S\ref{sec:morph}) and the architectural NGC~5055 demonstration (\S\ref{sec:ngc5055}) --- are robust to replacing the Burkert backbone with the more flexible Einasto profile. The remaining base-profile-coupling concerns discussed in \S\ref{sec:coupling} still apply for fully novel halo families (e.g., backbone profiles outside the cored-cuspy class), but the most natural and most flexible alternative within that class produces the same qualitative results at full-sample statistical strength. A second robustness check, against T-dependent stellar mass-to-light variation, is reported in \S\ref{sec:yt} and yields the same conclusion.
 
-\section{Limitations}
+
+\section{Limitations}\label{sec:limitations}
 
 \subsection{Universal-failure galaxies}\label{sec:universal}
 
 Across the $T=2$--$9$ sample, 10 galaxies (9.8\%) are not adequately fit by any of the three baseline models tested: Burkert, NFW, and the framework all yield $\chired \ge 1.5$. Nine of these belong to the high-$\Vflat$ subsample (defined as $\Vflat > 160$~km/s) in the $T=2$--$7$ range; the tenth is UGC~00128 in the $T=8$ sample.
 
-Five of nine have clean baryon decompositions, so this subset is not characterized by data-quality issues. Six of the nine reach the architectural ceiling of two shells in the framework's BIC selection, suggesting the rotation-curve substructure exceeds what two Gaussian shells can capture.
+Five of nine have clean baryon decompositions, so this subset is not characterized by data-quality issues. Six of the nine saturate the framework's two-shell architectural ceiling under BIC selection, distinguishing them from the 102-galaxy sample where the framework is either adequate or BIC selects zero shells. This saturation pattern is itself a useful diagnostic: it identifies the subset of galaxies whose 1D rotation-curve structure exceeds what either smooth halos or two-Gaussian-component models can represent, and for which 2D follow-up is the natural next step (final paragraph below).
 
 To test whether the universal-failure designation extends beyond the Burkert and NFW comparison models, we additionally fit the DC14 \citep{DiCintio2014a,DiCintio2014b} feedback-modified halo profile to all 10 universal-failure galaxies. The results, shown in Table~\ref{tab:dc14}, demonstrate that DC14 also fails the $\chired < 1.5$ adequacy threshold on all 10 galaxies, with values ranging from 2.02 (NGC~0289) to 28.58 (UGC~06787) and a median of 4.37.
 
 Notably, 8 of the 10 DC14 fits converged to the parameter boundary at $X = -1.5$, the upper limit beyond which DC14 reduces to NFW. This indicates the optimizer attempted to escape DC14's parameter space entirely toward the NFW limit; even at the boundary, the fits remained inadequate. The two galaxies that did not hit the boundary (UGC~09133 at $X = -1.69$, NGC~5033 at $X = -2.34$) found cored profiles ($\gamma = 0.82$ and $0.31$ respectively) but still failed adequacy. One caveat worth flagging: the universal-failure subset is dominated by massive spirals (7 of 10 have $\Vflat > 200$~km/s, with implied $\Mhalo \sim 10^{12}$--$10^{13}~\Msun$), and at these halo masses $\log_{10}(\Mstar/\Mhalo)$ sits near or below the lower edge of the regime where DC14 was calibrated to capture feedback-driven core formation. Some of the boundary-pegging behavior may therefore reflect that these galaxies sit near the edge of DC14's validity domain rather than a wholesale failure of the feedback-modified profile family. This does not change the conclusion --- DC14 still fails adequacy on 10/10, and the framework still achieves the lowest $\chired$ on 9 of 10 (NFW marginally beats the framework on UGC~00128) --- but the interpretation is that DC14 was tested in a regime where it was not designed to dominate, not that DC14 is uniformly inadequate as a smooth-profile candidate. We interpret the broader pattern as evidence that the universal-failure designation is not an artifact of comparing only against two specific smooth profiles. The framework, despite also failing the formal adequacy threshold, achieves the lowest $\chired$ of all four models on 9 of 10 galaxies (Table~\ref{tab:dc14}; NFW marginally beats the framework on UGC~00128), indicating that what these galaxies require is not merely a different smooth profile but additional architectural complexity.
 
-A complementary explanation for these galaxies' resistance to 1D halo modeling is that some of the residual structure may not be of halo origin at all. The universal-failure subset is dominated by massive early-type spirals (7 of 10 have $\Vflat > 200$~km/s), a population in which bars, warps, and triaxiality are observationally common and in which 1D rotation curves are most susceptible to non-circular motions. Bar-driven streaming can produce systematic residuals at intermediate radii that mimic localized halo features in azimuthally-averaged rotation curves \citep[e.g.,][]{Sellwood1993,Sellwood2014}. Warps introduce projection-dependent velocity structure that 1D fits cannot disentangle from intrinsic mass distribution, and triaxial halos add further departures from circular-motion equilibrium. The framework's shell components, like any halo profile fit to $V(r)$, cannot distinguish localized halo mass from these dynamical complications. We do not claim the universal-failure pattern is necessarily a halo-architecture phenomenon; resolving its origin requires 2D velocity field analysis (HI cubes, IFU spectroscopy), and we flag the universal-failure galaxies as the natural population on which to apply such tests.
+A complementary explanation for these galaxies' resistance to 1D halo modeling is that some of the residual structure may not be of halo origin at all. The universal-failure subset is dominated by massive early-type spirals (7 of 10 have $\Vflat > 200$~km/s), a population in which bars, warps, and triaxiality are observationally common and in which 1D rotation curves are most susceptible to non-circular motions. Bar-driven streaming can produce systematic residuals at intermediate radii that mimic localized halo features in azimuthally-averaged rotation curves \citep[e.g.,][]{Sellwood1993,Sellwood2014}. Warps introduce projection-dependent velocity structure that 1D fits cannot disentangle from intrinsic mass distribution, and triaxial halos add further departures from circular-motion equilibrium. The framework's shell components, like any halo profile fit to $V(r)$, cannot distinguish localized halo mass from these dynamical complications.
 
-\figstub{5}{Universal-failure galaxies in the $T=2$--$7$ range: the nine galaxies where Burkert, NFW, and framework all yield $\chired \ge 1.5$. Sorted by framework $\chired$ (worst first, top-left).}\label{fig:universal}
+Rather than a model ceiling, we therefore interpret the universal-failure designation as a diagnostic flag: these 10 galaxies are precisely the population where 1D rotation-curve modeling --- by any smooth or shell-augmented halo profile --- is least able to disentangle halo architecture from dynamical complications, and 2D velocity field follow-up (HI cubes, IFU spectroscopy) is the appropriate next test. The framework's adequacy comparison thus does double duty: where smooth and shell-augmented models all converge (91/102 of the sample), the framework characterizes the halo; where they all fail jointly (10/102), it identifies the small, well-defined subset where 1D methodology has reached its information limit and where 2D follow-up has the most leverage.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]{figure3_universal_failures.png}
+\caption{Universal-failure galaxies in the $T=2$--$7$ range: the nine galaxies where Burkert, NFW, and framework all yield $\chired \ge 1.5$. Sorted by framework $\chired$ (worst first, top-left).}
+\label{fig:universal}
+\end{figure}
 
 \subsection{Per-galaxy decomposition limits}
 
@@ -362,25 +301,26 @@ Four arguments push back on this concern, none individually conclusive but joint
 
 We performed this test directly. Holding $\Ybulge = 0.7$ fixed, we re-ran the canonical framework / Burkert / NFW fits on the full 102-galaxy sample with $\Ydisk$ varying piecewise-linearly by morphological type with anchors $\Ydisk(T=2) = 0.65$, $\Ydisk(T=5) = 0.50$, $\Ydisk(T=9) = 0.40$ \citep{Schombert2022} --- the strongest realistic gradient discussed in the literature. The schedule is reported in the \texttt{data/} directory of the released code repository (\S\ref{sec:dataavail}); the re-fit output is shipped as \texttt{sparc\_T2-T9\_y\_T\_fits.csv} alongside the canonical fits. Per-galaxy classification stability is 96.1\% (98 of 102 galaxies retain their canonical shell-bearing/no-shell classification). Adequacy counts remain essentially unchanged (framework 90/102, Burkert 66/102, NFW 51/102, all within one galaxy of the canonical 91/65/52). Framework-over-NFW BIC preference is also unchanged (54 BIC-very-strongly preferring the framework, versus 4 BIC-strong-NFW and zero very-strong-NFW; the BIC asymmetry in Table~\ref{tab:winloss} reproduces). The morphology-gradient finding survives: $T=2$ remains at 100\% (9/9) under T-binned $\Yt$, late types remain depressed ($T=9$ drops from 31\% to 25\%), the per-galaxy permutation test of T-trend gives $p_{\rm two-sided} = 0.008$ (vs.\ 0.002 canonical), the per-galaxy Spearman gives $\rho = -0.264$ at $p = 0.007$, and the bootstrap 95\% CI on the per-bin Spearman $\rho$ is $[-0.905, -0.096]$ (still excludes zero). The $T=2$-vs-$T=3$--$6$ Fisher contrast strengthens to $p = 0.004$, and the late-type-vs-Burkert-truth-null contrast is unchanged at $p = 2.5 \times 10^{-5}$. Two specific per-bin tests do weaken: per-bin Spearman drops to $p = 0.18$ and Mann-Kendall to $p = 0.275$ because the $T=8$ bin ($n=6$) has one galaxy flip from no-shell to shell-bearing under T-binned $\Yt$, and a single-galaxy move dominates a 6-galaxy bin. The morphology-gradient finding is therefore robust to $\Yt$ variation at the population level, while the per-bin trend tests remain sensitive to small-bin sampling. The $\Ydisk(T)$ steelman is refuted as a primary driver of the morphology gradient.
 
-\new{\textbf{Scope of the steelman: direction matters.} The piecewise-linear schedule above tests \emph{population-level} robustness under a fixed $T$-dependent gradient that pushes $\Ydisk$ upward at early types (anchors $0.65, 0.50, 0.40$ at $T = 2, 5, 9$). This is the direction that makes shells \emph{more} necessary, not less: lifting $\Ydisk$ raises $\Vbar^2$, which makes the rotation-curve residual that shells absorb larger. The steelman therefore does not adversarially test individual galaxies in the direction that would weaken per-galaxy shell preferences --- namely, $\Ydisk$ allowed to drop below canonical under a per-galaxy prior.}
+\textbf{Scope of the steelman: direction matters.} The piecewise-linear schedule above tests \emph{population-level} robustness under a fixed $T$-dependent gradient that pushes $\Ydisk$ upward at early types (anchors $0.65, 0.50, 0.40$ at $T = 2, 5, 9$). This is the direction that makes shells \emph{more} necessary, not less: lifting $\Ydisk$ raises $\Vbar^2$, which makes the rotation-curve residual that shells absorb larger. The steelman therefore does not adversarially test individual galaxies in the direction that would weaken per-galaxy shell preferences --- namely, $\Ydisk$ allowed to drop below canonical under a per-galaxy prior.
 
-\new{\textbf{Per-galaxy joint $\Yt$ marginalization.} To test the adversarial direction, we ran the framework on NGC~5055 (\S\ref{sec:ngc5055}) with $\Ydisk$ and $\Ybulge$ jointly free under independent Gaussian log-priors at the \citet{Li2020} convention, $\log_{10}(\Yt) \sim \mathcal{N}(\log_{10}(\Yt_{\rm canonical}), 0.1~\mathrm{dex})$. Under this prior, NGC~5055's per-galaxy BIC preference for the framework drops from $\Delta\mathrm{BIC} \approx 157$ (at fixed canonical $\Yt$, Table~\ref{tab:ngc5055}) to $\Delta\mathrm{BIC} \approx +0.5$ (inconclusive). The marginalized fit prefers $\Ydisk \approx 0.43$, approximately one prior $\sigma$ below canonical, which allows the Burkert halo alone to absorb the residual structure that the shell otherwise captured at fixed $\Yt$. The marginalized two-shell fit recovers a canonical-like inner shell at $r \approx 14$~kpc with $M \approx 3.5 \times 10^{10}~\Msun$, confirming that the canonical shell basin remains detectable under marginalization but is no longer decisively preferred. Reproduction code is at \texttt{scripts/ngc5055\_marginalized\_upsilon.py}; full discussion of the per-galaxy degeneracy is in \S\ref{sec:ngc5055}. We have not performed joint marginalization on the full 102-galaxy sample; we identify this as the natural next test of per-galaxy versus population-level coupling.}
+\textbf{Per-galaxy joint $\Yt$ marginalization.} To test the adversarial direction, we ran the framework on NGC~5055 (\S\ref{sec:ngc5055}) with $\Ydisk$ and $\Ybulge$ jointly free under independent Gaussian log-priors at the \citet{Li2020} convention, $\log_{10}(\Yt) \sim \mathcal{N}(\log_{10}(\Yt_{\rm canonical}), 0.1~\mathrm{dex})$. Under this prior, NGC~5055's per-galaxy BIC preference for the framework drops from $\Delta\mathrm{BIC} \approx 157$ (at fixed canonical $\Yt$, Table~\ref{tab:ngc5055}) to $\Delta\mathrm{BIC} \approx +0.5$ (inconclusive). The marginalized fit prefers $\Ydisk \approx 0.43$, approximately one prior $\sigma$ below canonical, which allows the Burkert halo alone to absorb the residual structure that the shell otherwise captured at fixed $\Yt$. The marginalized two-shell fit recovers a canonical-like inner shell at $r \approx 14$~kpc with $M \approx 3.5 \times 10^{10}~\Msun$, confirming that the canonical shell basin remains detectable under marginalization but is no longer decisively preferred. Reproduction code is at \texttt{scripts/ngc5055\_marginalized\_upsilon.py}; full discussion of the per-galaxy degeneracy is in \S\ref{sec:ngc5055}. The natural extension is to apply this same joint marginalization at the population level; we report the result below.
 
-\new{\textbf{Scope of the per-galaxy finding.} The single-galaxy BIC preference for shells, at any specific galaxy in the sample, is sensitive to that galaxy's $\Yt$ choice and to the assumed prior width. NGC~5055's per-galaxy preference is not robust to joint $\Yt$ marginalization. The population-level adequacy comparison reported in \S\ref{sec:morph} (91/102 framework vs 65/102 Burkert-only) is, by contrast, computed at canonical $\Yt$ across the full sample, and the $T$-dependent steelman above confirms that adequacy advantage is preserved under realistic population-level $\Yt$ variation. The 91/102-vs-65/102 result is the load-bearing methodological claim of this paper. Per-galaxy fits, including the NGC~5055 showcase in \S\ref{sec:ngc5055}, should be read as illustrative of the framework's architecture and qualitative behavior, not as per-galaxy detections of localized structure that are robust independent of $\Yt$. Whether per-galaxy joint $\Yt$ marginalization on the full sample produces a different aggregate adequacy result --- specifically, whether a meaningful fraction of canonical-$\Yt$ shell-bearing galaxies admit a similar low-$\Ydisk$ no-shell alternative --- is a question we have not resolved and which a future paper should address with the full per-galaxy Bayesian treatment used by \citet{Li2020}.}
+\textbf{Hierarchical $\Yt$ marginalization on the full sample.} To extend the joint $\Yt$ marginalization from NGC~5055 above to the full population, we performed an empirical-Bayes hierarchical fit in which each galaxy's $\Ydisk$ and $\Ybulge$ are drawn from population log-normal hyperpriors whose parameters $(\mu, \tau)$ are jointly inferred with the per-galaxy halo parameters. The procedure iterates per-galaxy MAP fits and hyperprior updates until $|\Delta\mu|, |\Delta\tau| < 0.01$~dex, converging at iteration 2. The fitted population means are $\Ydisk^{\rm pop} = 0.485$ ($\mu_{\rm disk} = -0.315$~dex, $\tau_{\rm disk} = 0.081$~dex) and $\Ybulge^{\rm pop} = 0.749$ ($\mu_{\rm bulge} = -0.125$~dex, $\tau_{\rm bulge} = 0.081$~dex), within $\sim 3\%$ of the canonical SPARC convention $\Ydisk = 0.5$, $\Ybulge = 0.7$ --- indicating that the data-driven population distribution is not systematically displaced from canonical. The sample is 101 galaxies (NGC~6674 excluded for a known fit pathology). Under hierarchical marginalization, the framework adequately fits 86/101 galaxies and Burkert-only fits 72/101 (compare 91/102 and 65/102 at canonical $\Yt$). The framework-over-Burkert adequacy gap compresses from 26 to 14 galaxies --- a 46\% reduction --- but is preserved: the framework retains a 14-galaxy advantage at the population level under joint marginalization with a data-driven prior. The morphology gradient is also preserved (per-galaxy Spearman $\rho = -0.245, p = 0.013$, qualitatively unchanged from the canonical-$\Yt$ value $\rho = -0.296, p = 0.003$). Reproduction code is at \texttt{scripts/hierarchical\_upsilon\_marginalization.py}; per-galaxy results are in \texttt{data/hierarchical\_marginalization\_per\_galaxy.csv}. The hierarchical result directly addresses the open question raised by the NGC~5055 per-galaxy finding: a non-trivial fraction of canonical-$\Yt$ shell-bearing galaxies admit a lower-$\Ydisk$ smooth-halo alternative under joint marginalization, but the population-level adequacy advantage and the morphology gradient both survive the more aggressive prior.
 
-\editornote{\textbf{Substantive item still pending}: the steelman tests population-level robustness under a fixed $T$-dependent schedule but does not substitute for per-galaxy joint $\Yt$ marginalization (as in \citealt{Li2020}, where $\Yt$ is marginalized with a Gaussian prior at the SPARC-literature value). A one-paragraph disclosure here acknowledging this gap, and flagging joint marginalization as the obvious next test, is the conservative move to pre-empt a likely PASP referee question. Note: the piecewise-linear schedule above yields $\Ydisk(T=4) = 0.55$ (interpolated between anchors at $T=2$ and $T=5$), not 0.50; NGC~5055 \emph{is} probed by the steelman at $\Ydisk = 0.55$, $10\%$ above canonical. \\ \textbf{Resolved 2026-05-13:} marginalization test on NGC~5055 was executed. The three blue paragraphs above replace the originally-planned single-paragraph disclosure --- the result was substantive enough (single-galaxy $\Delta\mathrm{BIC}$ drops from 157 to $\approx 0.5$) to warrant a full subsection treatment with explicit scope-bounding around population-vs-per-galaxy. Full-sample per-galaxy marginalization is identified as the natural follow-up paper.}
+\textbf{Scope of the per-galaxy finding.} The single-galaxy BIC preference for shells, at any specific galaxy in the sample, is sensitive to that galaxy's $\Yt$ choice and to the assumed prior width. NGC~5055's per-galaxy preference is not robust to joint $\Yt$ marginalization. The population-level adequacy comparison reported in \S\ref{sec:morph} (91/102 framework vs 65/102 Burkert-only) is, by contrast, computed at canonical $\Yt$ across the full sample, and the $T$-dependent steelman above confirms that adequacy advantage is preserved under realistic population-level $\Yt$ variation; the hierarchical marginalization above further confirms it is preserved (at compressed but still significant magnitude) under a data-driven population prior. The 91/102-vs-65/102 result is the load-bearing methodological claim of this paper. Per-galaxy fits, including the NGC~5055 showcase in \S\ref{sec:ngc5055}, should be read as illustrative of the framework's architecture and qualitative behavior, not as per-galaxy detections of localized structure that are robust independent of $\Yt$. The framework's structural claim is unaffected by the per-galaxy $\Yt$ degeneracy: BIC-selected shells capture rotation-curve features that smooth Burkert and smooth NFW profiles cannot absorb at any $\Yt$ within the prior support tested, and this is a property of the data, not of the $\Yt$ convention. The question that joint marginalization addresses is what fraction of those features admit an alternative low-$\Yt$ smooth-halo description --- which the hierarchical result quantifies as the difference between the canonical 26-galaxy and marginalized 14-galaxy adequacy gaps --- not whether the features themselves are present.
 
-%% =========================================================================
-%% SECTION 5: DISCUSSION
-%% =========================================================================
+\subsection{Summary of limitations and additional channels}\label{sec:limsummary}
+
+The four limitation channels addressed above --- universal-failure galaxies (\S\ref{sec:universal}), per-galaxy decomposition non-uniqueness (\S4.2), base-profile shape coupling (\S\ref{sec:coupling}), and stellar-population systematics (\S\ref{sec:yt}) --- collectively bound what can and cannot be inferred from the framework, but they do not exhaust the channels that may qualify its interpretations. Three additional channels deserve brief acknowledgment. First, BIC is a parsimony heuristic with known sensitivity to the parameter penalty $p \ln n$; alternative criteria (DIC, full posterior model comparison, leave-one-out cross-validation) may yield somewhat different shell-selection rates on borderline galaxies, particularly the soft-margin cases discussed in \S\ref{sec:winloss}. Second, the choice of $\sigma/r \le 0.4$ as the shell-width threshold is architectural rather than physically derived; relaxing it would admit broader components, likely raising the Burkert-truth false-positive rate from the 4.0\% reported in \S\ref{sec:nulltest}, while tightening it would reduce shell-bearing fractions across the board. Third, SPARC is a heterogeneous catalog assembled from multiple original studies; per-galaxy uncertainties on $\Vobs$, $\Vgas$, and the photometric decomposition vary substantially across the sample, and the framework treats them uniformly under the multi-restart procedure. The framework's load-bearing claim is the population-level adequacy comparison, which is robust to the steelmans considered in \S\S\ref{sec:universal}--\ref{sec:yt}; per-galaxy interpretations should be read as constrained by these channels rather than as independently verified detections of localized halo structure.
+
 
 \section{Discussion}\label{sec:discussion}
 
-\subsection{\new{Summary of framework performance}}
+\subsection{Summary of framework performance}\label{sec:summary}
 
-Across the diagnostics we tested, no single smooth halo profile in the cored-cuspy family adequately reproduces SPARC rotation-curve structure across the full $T=2$--$9$ morphological range. Burkert alone fits 65 of 102 galaxies; NFW alone fits 52; DC14 fits zero of the 10 universal-failure galaxies on which it was tested. The Burkert-plus-shells framework fits 91 of 102, BIC-very-strongly preferred over NFW in 53 cases versus 8 NFW-preferring (none very strongly). \new{The framework's shell-bearing classifications survive Einasto-backbone substitution in 90 of 102 galaxies (88\%), confirming that the procedure measures structure not specific to the Burkert backbone choice.} Each of these results is reported separately in \S\S3--3.7; their cumulative weight is that the localized-residual-structure pattern is not specific to any one smooth-profile choice or to any one statistical test.
+Across the diagnostics we tested, no single smooth halo profile in the cored-cuspy family adequately reproduces SPARC rotation-curve structure across the full $T=2$--$9$ morphological range. Burkert alone fits 65 of 102 galaxies; NFW alone fits 52; DC14 fits zero of the 10 universal-failure galaxies on which it was tested. The Burkert-plus-shells framework fits 91 of 102, BIC-very-strongly preferred over NFW in 53 cases versus 8 NFW-preferring (none very strongly). The framework's shell-bearing classifications survive Einasto-backbone substitution in 90 of 102 galaxies (88\%), confirming that the procedure measures structure not specific to the Burkert backbone choice. Each of these results is reported separately in \S\S\ref{sec:aggregate}--\ref{sec:einasto}; their cumulative weight is that the localized-residual-structure pattern is not specific to any one smooth-profile choice or to any one statistical test.
 
-\new{The framework's most striking diagnostic output across the sample is a strong dependence of shell-bearing fraction on morphological type.} Across the SPARC $T=2$--$9$ sample, BIC-selected shell-bearing fraction declines from 100\% at $T=2$ (Sab) to 31\% at $T=9$ (Sdm), with a monotonic decline at the morphological extremes and a flat middle ($T=3$--$6$ cluster near 54\%). The strongest test of this trend is a T-label permutation on 102 individual galaxies giving $p_{\rm two-sided} = 0.002$ against the no-trend null; \new{the trend also survives Einasto-backbone substitution at the per-galaxy level ($\rho = -0.347, p = 0.0004$).} The synthetic null test (\S\ref{sec:nulltest}) further constrains the gradient to be inconsistent with both smooth-Burkert and smooth-NFW truth as primary drivers, with mixed-truth and external-family scenarios remaining as the residual logically-possible explanations (\S\ref{sec:coupling}). \new{We report this morphological dependence as a demonstration of the framework's sensitivity to halo structure rather than as an independent claim about hierarchical assembly; the physical interpretation of the gradient is left to follow-on work.}
+The framework's most striking diagnostic output across the sample is a strong dependence of shell-bearing fraction on morphological type. Across the SPARC $T=2$--$9$ sample, BIC-selected shell-bearing fraction declines from 100\% at $T=2$ (Sab) to 31\% at $T=9$ (Sdm), with a monotonic decline at the morphological extremes and a flat middle ($T=3$--$6$ cluster near 54\%). The strongest test of this trend is a T-label permutation on 102 individual galaxies giving $p_{\rm two-sided} = 0.002$ against the no-trend null; the trend also survives Einasto-backbone substitution at the per-galaxy level ($\rho = -0.347, p = 0.0004$). The synthetic null test (\S\ref{sec:nulltest}) further constrains the gradient to be inconsistent with both smooth-Burkert and smooth-NFW truth as primary drivers, with mixed-truth and external-family scenarios remaining as the residual logically-possible explanations (\S\ref{sec:coupling}). We report this morphological dependence as a demonstration of the framework's sensitivity to halo structure rather than as an independent claim about hierarchical assembly; the physical interpretation of the gradient is left to follow-on work.
 
 \subsection{Interpretation: localized residual structure and possible origins}\label{sec:interp}
 
@@ -390,19 +330,17 @@ Several physical scenarios are consistent with this kind of localized residual s
 
 \subsection{Relationship to smooth-halo alternatives}\label{sec:smoothalt}
 
-%% First paragraph: preserved from v7.1.0.
-
 More flexible smooth profiles, such as Einasto, DC14 \citep{DiCintio2014a,DiCintio2014b}, or generalized NFW, may improve fits for some galaxies. However, these models remain globally smooth. Their additional parameters alter the broad radial shape of the halo rather than introducing discrete localized components. Such profiles may reduce residuals in some cases, but they cannot naturally represent narrow or intermediate-radius features without shifting the full profile. The DC14 universal-failure result (\S\ref{sec:universal}, Table~\ref{tab:dc14}) --- 10/10 fail adequacy, 8/10 pegging the parameter boundary attempting to revert to NFW --- establishes that the failure pattern is not specific to Burkert-vs-NFW shape choice within the smooth-profile alternatives we tested. Einasto, the most flexible 3-parameter alternative within the cored-cuspy family, has been tested on the full 102-galaxy sample (\S\ref{sec:einasto}) and yields the same qualitative findings as the Burkert backbone (88\% classification agreement, morphology gradient preserved at $p < 0.001$ per-galaxy); generalized NFW and free-shape backbones remain untested.
 
-%% NEW PARAGRAPH inserted after the existing first paragraph of S5.3.
+A separate line of SPARC work has characterized smooth-halo properties through scaling relations rather than per-galaxy fit quality. \citet{Li2019} fit Einasto and DC14 profiles to all 175 SPARC galaxies and found that the characteristic volume density $\rho_s$ is nearly constant over five decades in galaxy luminosity, while the scale radius $r_s$ and the surface-density product $\rho_s \cdot r_s$ correlate with luminosity. These scaling relations describe the smooth halo itself. The shell parameters identified by the present framework are a complementary observable: they measure residual structure that the smooth halo cannot absorb, and would not appear in any scaling-relation analysis conducted on the smooth fits alone.
 
-\new{A separate line of SPARC work has characterized smooth-halo properties through scaling relations rather than per-galaxy fit quality. \citet{Li2019} fit Einasto and DC14 profiles to all 175 SPARC galaxies and found that the characteristic volume density $\rho_s$ is nearly constant over five decades in galaxy luminosity, while the scale radius $r_s$ and the surface-density product $\rho_s \cdot r_s$ correlate with luminosity. These scaling relations describe the smooth halo itself. The shell parameters identified by the present framework are a complementary observable: they measure residual structure that the smooth halo cannot absorb, and would not appear in any scaling-relation analysis conducted on the smooth fits alone.}
+Bayesian model comparison has likewise been applied to smooth halo-profile selection on SPARC \citep{Khelashvili2023}; the localized residual components identified here are complementary to such smooth-profile analyses, capturing structure not addressed by varying the smooth profile alone.
 
-\subsection{NGC~5055 as an architectural demonstration}
+\subsection{NGC~5055 as an architectural demonstration}\label{sec:ngc5055arch}
 
-NGC~5055 (\S\ref{sec:ngc5055}) provides one clear single-galaxy example of the broader pattern in the universal-failure subset (\S\ref{sec:universal}). \new{At the canonical SPARC stellar mass-to-light convention,} across all four smooth profiles tested (Burkert, NFW, DC14, Einasto), the rotation-curve structure cannot be absorbed by smooth-halo flexibility alone; the framework with one BIC-selected shell at $r \approx 12$~kpc reaches $\chired = 1.46$, and Einasto $+$ 2 shells reaches $\chired = 0.51$. \new{The per-galaxy BIC preference at canonical $\Yt$ is not, however, robust to joint $\Yt$ marginalization on this single galaxy: under independent Gaussian log-priors at the \citet{Li2020} convention, the marginalized BIC preference for the framework drops to $\Delta\mathrm{BIC} \approx +0.5$ (inconclusive; \S\ref{sec:ngc5055}, \S\ref{sec:yt}).} The same DC14 failure pattern extends to the broader universal-failure subset (\S\ref{sec:universal}, Table~\ref{tab:dc14}), so the architectural lesson is not specific to this one galaxy\new{; the framework's load-bearing claim is the population-level adequacy comparison (91/102 framework vs 65/102 Burkert-only at canonical $\Yt$), which is not subject to the per-galaxy $\Yt$ degeneracy that affects single-galaxy showcases}.
+NGC~5055 (\S\ref{sec:ngc5055}) provides one clear single-galaxy example of the broader pattern in the universal-failure subset (\S\ref{sec:universal}). At the canonical SPARC stellar mass-to-light convention, across all four smooth profiles tested (Burkert, NFW, DC14, Einasto), the rotation-curve structure cannot be absorbed by smooth-halo flexibility alone; the framework with one BIC-selected shell at $r \approx 12$~kpc reaches $\chired = 1.46$, and Einasto $+$ 2 shells reaches $\chired = 0.51$. The per-galaxy BIC preference at canonical $\Yt$ is not, however, robust to joint $\Yt$ marginalization on this single galaxy: under independent Gaussian log-priors at the \citet{Li2020} convention, the marginalized BIC preference for the framework drops to $\Delta\mathrm{BIC} \approx +0.5$ (inconclusive; \S\ref{sec:ngc5055}, \S\ref{sec:yt}). The same DC14 failure pattern extends to the broader universal-failure subset (\S\ref{sec:universal}, Table~\ref{tab:dc14}), so the architectural lesson is not specific to this one galaxy; the framework's load-bearing claim is the population-level adequacy comparison (91/102 framework vs 65/102 Burkert-only at canonical $\Yt$), which is not subject to the per-galaxy $\Yt$ degeneracy that affects single-galaxy showcases.
 
-\subsection{Highest-leverage validation tests}
+\subsection{Highest-leverage validation tests}\label{sec:future}
 
 The synthetic null test (\S\ref{sec:nulltest}) and the full-sample Einasto-backbone substitution (\S\ref{sec:einasto}) together rule out the simplest base-profile-artifact interpretations of the morphology gradient; the highest-leverage future tests target the explanations that remain. First, repeating the null and morphology-gradient analyses with cosmologically-motivated and more flexible base profiles (generalized NFW, free-shape backbones) would extend the Einasto robustness check to the full cored-cuspy family. Second, the \citet{Reines2013} dwarf-AGN cross-match would add $\sim$150 dwarf galaxies with optical AGN signatures and broad-H$\alpha$-derived $M_{\rm BH}$ measurements; whether shell properties correlate with externally-measured $M_{\rm BH}$ on this sample is a clean external test. Third, radial-distribution analysis of selected shells, where clustering in normalized units ($r_{\rm shell}/R_{\rm disk}, r_{\rm shell}/r_{\rm vir}$) would suggest a real structural scale.
 
@@ -410,47 +348,47 @@ A fourth, suggested by \S\ref{sec:universal}: 2D velocity-field follow-up of the
 
 \subsection{Interpretation and scope}
 
-The framework should not be read as a complete theory of dark matter halos. It is a phenomenological test of whether localized residual structure, parameterized as BIC-selected shells over a smooth backbone, improves rotation-curve modeling and whether that structure appears in a physically meaningful population pattern. \new{Treating galactic halos not only as smooth equilibrium profiles, but as structured systems containing residual signatures whose physical origin remains the question for future work, is one perspective these results are consistent with, and the framework provides an empirical handle for testing it further.}
+The framework should not be read as a complete theory of dark matter halos. It is a phenomenological test of whether localized residual structure, parameterized as BIC-selected shells over a smooth backbone, improves rotation-curve modeling and whether that structure appears in a physically meaningful population pattern. Treating galactic halos not only as smooth equilibrium profiles, but as structured systems containing residual signatures whose physical origin remains the question for future work, is one perspective these results are consistent with, and the framework provides an empirical handle for testing it further.
 
-%% =========================================================================
-%% SECTION 6: CONCLUSION
-%% =========================================================================
 
-\section{Conclusion}
+\section{Conclusion}\label{sec:conclusion}
 
-\new{We have introduced a framework for detecting and characterizing localized residual structure in galaxy rotation curves: a smooth Burkert backbone augmented by zero, one, or two Gaussian shells, with shell number selected per-galaxy by BIC and shell width constrained by $\sigma/r \le 0.4$. Applied to the SPARC $T=2$--$9$ sample (102 galaxies, 2334 data points), the framework adequately fits 91/102 galaxies at $\chired < 1.5$, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW. BIC selects zero shells in 50/102 galaxies, indicating that the parameter penalty effectively suppresses spurious selection. This adequacy comparison is the central methodological contribution of the paper.}
+We have introduced a framework for detecting and characterizing localized residual features in galaxy rotation curves: a smooth Burkert backbone augmented by zero, one, or two Gaussian shells, with shell number selected per-galaxy by BIC and shell width constrained by $\sigma/r \le 0.4$. Applied to the SPARC $T=2$--$9$ sample (102 galaxies, 2334 data points), the framework adequately fits 91/102 galaxies at $\chired < 1.5$, compared with 65/102 for Burkert-only and 52/102 for free-concentration NFW. BIC selects zero shells in 50/102 galaxies, indicating that the parameter penalty effectively suppresses spurious selection. This adequacy comparison is the central methodological contribution of the paper.
 
-\new{We validated the framework with three controls. Synthetic null tests give a 4.0\% false-positive rate under Burkert-matched truth and a 63.6\% rate under NFW-mismatched truth --- establishing both that the framework does not generate shells from noise on data matching its backbone, and that it does generate shells when the backbone is shape-mismatched, a controlled diagnostic of base-profile coupling rather than a noise failure. Substituting an Einasto backbone preserves shell classification in 90/102 galaxies (88\%) and yields all primary findings at full statistical strength. A $T$-dependent $\Ydisk$ steelman, with anchors spanning the \citet{Schombert2022} color-derived range, does not overturn the principal trend.}
+We validated the framework with four controls. Synthetic null tests give a 4.0\% false-positive rate under Burkert-matched truth and a 63.6\% rate under NFW-mismatched truth --- establishing both that the framework does not generate shells from noise on data matching its backbone, and that it does generate shells when the backbone is shape-mismatched, a controlled diagnostic of base-profile coupling rather than a noise failure. Substituting an Einasto backbone preserves shell classification in 90/102 galaxies (88\%) and yields all primary findings at full statistical strength. A $T$-dependent $\Ydisk$ steelman, with anchors spanning the \citet{Schombert2022} color-derived range, does not overturn the principal trend. A hierarchical $\Yt$ marginalization, in which $\Ydisk$ and $\Ybulge$ are drawn from population log-normal hyperpriors with data-driven mean and dispersion, compresses the framework-over-Burkert adequacy gap from 26 to 14 galaxies but preserves it, and preserves the morphology gradient (per-galaxy $\rho = -0.245, p = 0.013$). A consolidated treatment of artifact-channel robustness for the shell population as a whole --- including spatial-coherence destructive null tests, perturbation analyses for $\Yt$, distance, and inclination, an anti-warp clean-subsample analysis, the backbone-shift test for shell--backbone coupling, and the Einasto-backbone substitution summarized above --- is presented in the companion paper (Bibb 2026a, in prep.).
 
-\new{Two demonstrations exhibit the framework's sensitivity to halo structure. First, shell-bearing fraction declines significantly with morphological type across $T=2$--$9$ (per-galaxy T-label permutation $p_{\rm two-sided} = 0.002$; $\rho = -0.347$ under Einasto, $p = 0.0004$), driven primarily by a 100\% shell-bearing fraction at $T=2$ and a 31\% fraction at $T=9$; the synthetic null test rules out the two simplest base-profile-mismatch explanations as dominant drivers. Second, NGC~5055 illustrates the framework's architectural behavior at the single-galaxy level: at canonical $\Yt$, Burkert, NFW, DC14, and Einasto smooth profiles all leave residual structure that BIC-selected shells resolve under both Burkert and Einasto backbones ($\chired = 8.4$--$30.2$ for smooth profiles; $\chired = 1.46$ and $0.51$ for the Burkert and Einasto frameworks respectively). We note for transparency that NGC~5055's per-galaxy BIC preference is sensitive to joint $\Yt$ marginalization on this single galaxy: under independent Gaussian log-priors at the \citet{Li2020} convention, the per-galaxy $\Delta\mathrm{BIC}$ between Burkert-only and the framework drops to $\approx +0.5$ (inconclusive; full disclosure in \S\ref{sec:ngc5055}, \S\ref{sec:yt}). The framework's load-bearing claim is the population-level adequacy comparison at canonical $\Yt$, not per-galaxy decisiveness on any individual showcase. The same DC14 failure pattern extends to all 10 universal-failure galaxies (Table~\ref{tab:dc14}).}
+Two demonstrations exhibit the framework's sensitivity to halo structure. First, shell-bearing fraction declines significantly with morphological type across $T=2$--$9$ (per-galaxy T-label permutation $p_{\rm two-sided} = 0.002$; $\rho = -0.347$ under Einasto, $p = 0.0004$), driven primarily by a 100\% shell-bearing fraction at $T=2$ and a 31\% fraction at $T=9$; the synthetic null test rules out the two simplest base-profile-mismatch explanations as dominant drivers. Second, NGC~5055 illustrates the framework's single-galaxy architectural behavior: all four smooth profiles tested (Burkert, NFW, DC14, Einasto) fail adequacy, BIC-selected shells reduce residuals below the adequacy threshold under both Burkert and Einasto backbones, and the per-galaxy BIC preference is $\Yt$-degenerate (full disclosure in \S\ref{sec:ngc5055}). The DC14 failure pattern extends to all 10 universal-failure galaxies (Table~\ref{tab:dc14}). The load-bearing claim is the population-level adequacy comparison, not the showcase.
 
-Several physical scenarios remain consistent with these localized residuals (\S\ref{sec:interp}), and 1D rotation curves alone cannot distinguish among them on a per-galaxy basis. Mixed-truth and external-family base-profile scenarios outside the tested family also remain logically possible (\S\ref{sec:coupling}). The four highest-leverage follow-up tests --- detailed in \S5.5 --- are: more flexible base profiles (generalized NFW, free-shape backbones), the \citet{Reines2013} dwarf-AGN cross-match for externally-measured $M_{\rm BH}$, radial-distribution analysis of selected shells in normalized units, and 2D velocity-field follow-up of the universal-failure galaxies.
+Several physical scenarios remain consistent with these localized residuals (\S\ref{sec:interp}), and 1D rotation curves alone cannot distinguish among them on a per-galaxy basis. Mixed-truth and external-family base-profile scenarios outside the tested family also remain logically possible (\S\ref{sec:coupling}). The four highest-leverage follow-up tests --- detailed in \S\ref{sec:future} --- are: more flexible base profiles (generalized NFW, free-shape backbones), the \citet{Reines2013} dwarf-AGN cross-match for externally-measured $M_{\rm BH}$, radial-distribution analysis of selected shells in normalized units, and 2D velocity-field follow-up of the universal-failure galaxies.
 
 The broader implication, if these tests support the present results, is that galactic halos may be more usefully treated as structured systems with localized residual features than as smooth equilibrium profiles.
 
-%% =========================================================================
-%% DATA AND CODE AVAILABILITY
-%% =========================================================================
 
+\begin{acknowledgments}
+This research has made use of the SPARC database \citep{Lelli2016}. We acknowledge informal feedback from a reviewer who read v7.1.0 of this manuscript and provided substantial guidance on PASP-target framing. We further acknowledge use of Anthropic's Claude (claude.ai, Claude Opus 4.6/4.7 and Sonnet 4.6) as a sounding board for methodological feedback, vulnerability identification in pre-submission self-review, and presentation refinement during preparation of this manuscript; the framework design, fits, statistical analyses, interpretations, and scientific conclusions are the author's responsibility, and all model output was critically reviewed and edited by the author.
+\end{acknowledgments}
+
+\software{NumPy, SciPy, Matplotlib, Pandas}
+
+
+\phantomsection
 \section*{Data and Code Availability}\label{sec:dataavail}
 
-The canonical fit table for all 102 galaxies (\texttt{sparc\_T2-T9\_canonical\_fits.csv}) contains per-galaxy Burkert, NFW, and framework parameters with $\chi^2$ and BIC values, plus shell parameters for shell-bearing galaxies. The combined $T=2$--$9$ synthetic null test results (\texttt{null\_test\_T2-T9\_combined.csv}) contain shell-selection outcomes for all 346 mock fits; the $T=8$--$9$ extension is also available separately. The DC14 universal-failure fit results are in \texttt{dc14\_universal\_failures\_results.csv}; the corresponding single-galaxy DC14 fit for NGC~5055 (Table~\ref{tab:ngc5055}, \S\ref{sec:ngc5055}) is provided separately in \texttt{dc14\_ngc5055\_showcase.csv} and reproduced by \texttt{scripts/dc14\_ngc5055.py}. The full-sample Einasto-backbone robustness test results (\S\ref{sec:einasto}) are in \texttt{einasto\_full\_sample\_results.csv}; the original 16-galaxy stratified subsample (preserved as a sub-finding) is in \texttt{einasto\_robustness\_results.csv}. The fitting pipeline is implemented in Python using \texttt{scipy.optimize.curve\_fit} with multi-restart logic; permutation and bootstrap procedures used in \S\ref{sec:morph} are provided in \texttt{scripts/permutation\_test.py}, the Einasto-backbone framework is in \texttt{scripts/einasto\_backbone.py}, and the full-sample Einasto runner is in \texttt{scripts/run\_einasto\_full\_sample.py}. Fit reproduction requires the SPARC rotmod files (publicly available from \citealt{Lelli2016} supplementary material). Code and data are publicly available at \href{https://github.com/RonBibb/sparc-halo-shells}{github.com/RonBibb/sparc-halo-shells} (release v7.1.0) and archived at Zenodo: \href{https://doi.org/10.5281/zenodo.20072882}{doi:10.5281/zenodo.20072882}.
+The canonical fit table for all 102 galaxies (\texttt{sparc\_T2-T9\_canonical\_fits.csv}) contains per-galaxy Burkert, NFW, and framework parameters with $\chi^2$ and BIC values, plus shell parameters for shell-bearing galaxies. The combined $T=2$--$9$ synthetic null test results (\texttt{null\_test\_T2-T9\_combined.csv}) contain shell-selection outcomes for all 346 mock fits; the $T=8$--$9$ extension is also available separately. The DC14 universal-failure fit results are in \texttt{dc14\_universal\_failures\_results.csv}; the corresponding single-galaxy DC14 fit for NGC~5055 (Table~\ref{tab:ngc5055}, \S\ref{sec:ngc5055}) is provided separately in \texttt{dc14\_ngc5055\_showcase.csv} and reproduced by \texttt{scripts/dc14\_ngc5055.py}. The full-sample Einasto-backbone robustness test results (\S\ref{sec:einasto}) are in \texttt{einasto\_full\_sample\_results.csv}; the original 16-galaxy stratified subsample (preserved as a sub-finding) is in \texttt{einasto\_robustness\_results.csv}. The NGC~5055 joint-$\Yt$ marginalization results are in \texttt{data/ngc5055\_marginalized\_upsilon\_results.csv}, with the \texttt{--fix-upsilon} sanity check in \texttt{data/ngc5055\_fixed\_upsilon\_recheck\_results.csv} and reproduction script at \texttt{scripts/ngc5055\_marginalized\_upsilon.py}. The full-sample hierarchical $\Yt$ marginalization results (\S\ref{sec:yt}) are in \texttt{data/hierarchical\_marginalization\_per\_galaxy.csv} (101 galaxies $\times$ 3 iterations) and \texttt{data/hierarchical\_marginalization\_hyperprior\_history.csv}; reproduction scripts at \texttt{scripts/hierarchical\_upsilon\_marginalization.py} and \texttt{scripts/summarize\_hierarchical\_results.py}. The fitting pipeline is implemented in Python using \texttt{scipy.optimize.curve\_fit} with multi-restart logic; permutation and bootstrap procedures used in \S\ref{sec:morph} are provided in \texttt{scripts/permutation\_test.py}, the Einasto-backbone framework is in \texttt{scripts/einasto\_backbone.py}, and the full-sample Einasto runner is in \texttt{scripts/run\_einasto\_full\_sample.py}. Fit reproduction requires the SPARC rotmod files (publicly available from \citealt{Lelli2016} supplementary material). Code and data are publicly available at \href{https://github.com/RonBibb/sparc-halo-shells}{github.com/RonBibb/sparc-halo-shells} (release v7.1.1) and archived at Zenodo: \href{https://doi.org/10.5281/zenodo.20072882}{doi:10.5281/zenodo.20072882}.
 
-%% =========================================================================
-%% TABLES
-%% =========================================================================
 
 \clearpage
+\phantomsection
 \section*{Tables}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{Sample composition by morphological type ($T=2$--$9$, 102 galaxies).}\label{tab:sample}
 \begin{tabular}{cccc c}
-\toprule
+\hline\hline
 $T$ & Type & $N$ & Shell-bearing & Fraction \\
-\midrule
+\hline
 2 & Sab  & 9   & 9  & 100.0\% \\
 3 & Sb   & 11  & 6  & 54.5\%  \\
 4 & Sb   & 17  & 9  & 52.9\%  \\
@@ -459,35 +397,35 @@ $T$ & Type & $N$ & Shell-bearing & Fraction \\
 7 & Scd  & 14  & 5  & 35.7\%  \\
 8 & Sd   & 6   & 2  & 33.3\%  \\
 9 & Sdm  & 16  & 5  & 31.2\%  \\
-\midrule
+\hline
 Total & --- & 102 & 52 & 51.0\% \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{Aggregate fit-quality metrics, all 102 galaxies ($T=2$--$9$). Two adequacy thresholds are reported: the headline $\chired < 1.5$ used elsewhere in the paper, and the stricter $\chired < 1.0$ for sensitivity. The framework's dominance is preserved at both thresholds.}\label{tab:fitquality}
 \begin{tabular}{l c c c c c}
-\toprule
+\hline\hline
 Model            & $\sum \chi^2$ & Adeq.\ $< 1.5$ & \%      & Adeq.\ $< 1.0$ & \% \\
-\midrule
+\hline
 Burkert-only     & 10{,}206 & 65 & 63.7\% & 57 & 55.9\% \\
 NFW (free $c$)   & 8{,}589  & 52 & 51.0\% & 41 & 40.2\% \\
 Framework        & 2{,}045  & 91 & 89.2\% & 86 & 84.3\% \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{Win/loss summary by $\Delta$BIC, framework versus comparison models ($T=2$--$9$, $n=102$). The FW-vs-Burkert column is structurally bounded above by the framework's superset relationship to Burkert (zero-shell selection makes the two models identical); the FW-vs-NFW column is the genuinely informative comparison.}\label{tab:winloss}
 \begin{tabular}{l c c}
-\toprule
+\hline\hline
 $\Delta$BIC verdict & FW vs Burkert & FW vs NFW \\
-\midrule
+\hline
 FW very strong ($\Delta\mathrm{BIC} < -10$)  & 38 & 53 \\
 FW strong ($-10$ to $-6$)                    & 6  & 6 \\
 FW positive ($-6$ to $-2$)                   & 3  & 16 \\
@@ -495,18 +433,18 @@ Inconclusive ($|\Delta\mathrm{BIC}| \le 2$)  & 55 & 19 \\
 Other positive ($+2$ to $+6$)                & 0  & 6 \\
 Other strong ($+6$ to $+10$)                 & 0  & 2 \\
 Other very strong ($> +10$)                  & 0  & 0 \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{Shell-bearing fraction by morphological type with synthetic null comparison and Fisher one-sided $p$-values. Burkert and NFW null rates are from the synthetic null test (\S\ref{sec:nulltest}). Trend tests across full $T=2$--$9$: Spearman $\rho = -0.83$ (analytic $p = 0.010$; T-label permutation $p_{\rm two-sided} = 0.002$; bootstrap 95\% CI $[-0.95, -0.22]$); Mann-Kendall $p = 0.003$. $T=9$ real (31\%) vs NFW-null (67\%): Fisher one-sided $p = 0.05$ (real significantly below NFW-null).}\label{tab:morphology}
 \begin{tabular}{c c c c c c c c}
-\toprule
+\hline\hline
 $T$ & Morph. & $N$ & Real shell-bearing & Frac & Burk null & NFW null & Fisher (vs Burk-null) \\
-\midrule
+\hline
 2 & Sab & 9  & 9 & 100\% & 5\% (1/20)  & 90\% (18/20) & $\approx 10^{-6}$ \\
 3 & Sb  & 11 & 6 & 55\%  & 5\% (1/20)  & 55\% (11/20) & 0.004 \\
 4 & Sb  & 17 & 9 & 53\%  & 0\% (0/25)  & 80\% (20/25) & $5\times10^{-5}$ \\
@@ -515,49 +453,49 @@ $T$ & Morph. & $N$ & Real shell-bearing & Frac & Burk null & NFW null & Fisher (
 7 & Scd & 14 & 5 & 36\%  & 0\% (0/25)  & 72\% (18/25) & 0.003 \\
 8 & Sd  & 6  & 2 & 33\%  & 11\% (2/18) & 50\% (9/18)  & 0.25 \\
 9 & Sdm & 16 & 5 & 31\%  & 13\% (2/15) & 67\% (10/15) & 0.22 \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{NGC~5055 fit comparison (4 models). Shell parameters: $M = 3.78 \times 10^{10}~\Msun$, $r = 12.0$~kpc, $\sigma = 2.91$~kpc.}\label{tab:ngc5055}
 \begin{tabular}{l r r r r}
-\toprule
+\hline\hline
 Model                  & $\chi^2$ & $\chired$ & BIC   & $\Delta$BIC \\
-\midrule
+\hline
 Burkert-only           & 190.6 & 9.53  & 196.8 & $+156.5$ \\
 NFW (free $c$)         & 604.1 & 30.21 & 610.3 & $+570.0$ \\
 DC14 (3 free)          & 171.1 & 9.01  & 180.4 & $+140.1$ \\
 Framework (1 shell)    & 24.9  & 1.46  & 40.3  & ---      \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{Synthetic null test summary (346 mock fits, 39 galaxies $\times$ 2 smooth-halo truths $\times$ 3--5 noise realizations; $T=2$--$9$, with stratified subsamples of 4--6 per T-type). The combined rate reflects a mixture of matched and mismatched backbone cases; not physically meaningful. The Burkert-truth FP rate is uniformly low ($\le 5\%$ in 6 of 8 T-bins) and uncorrelated with T-type (Spearman $\rho = +0.33, p = 0.42$); real-data shell-bearing fractions exceed the per-bin Burkert-truth FP rates in every T-bin.}\label{tab:nulltest}
 \begin{tabular}{l c c c}
-\toprule
+\hline\hline
 Smooth truth        & $N$ mocks & Selected $\ge 1$ shell & FP rate \\
-\midrule
+\hline
 Burkert ($T=2$--$9$) & 173 & 7   & 4.0\%  \\
 NFW ($T=2$--$9$)     & 173 & 110 & 63.6\% \\
 Combined$^*$         & 346 & 117 & 33.8\% \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \centering
 \small
 \caption{DC14 fits to the 10 universal-failure galaxies, compared to Burkert, NFW, and framework $\chired$ values. All 10 DC14 fits fail the $\chired < 1.5$ adequacy threshold. Eight of 10 hit the upper parameter boundary at $X = \log_{10}(\Mstar/\Mhalo) = -1.5$ (marked $\dagger$), where DC14 reduces to NFW. Framework $\chired$ is the lowest of the four models on every galaxy except UGC~00128.}\label{tab:dc14}
 \begin{tabular}{l c c c c c c c}
-\toprule
+\hline\hline
 Galaxy     & $T$ & $\Vflat$ & $\gamma$ (DC14) & Burk $\chired$ & NFW $\chired$ & DC14 $\chired$ & FW $\chired$ \\
-\midrule
+\hline
 NGC~6674   & 3 & 241 & $1.01^\dagger$ & 21.30 & 13.61 & 14.10 & 13.25 \\
 UGC~06787  & 2 & 248 & $1.01^\dagger$ & 33.73 & 28.18 & 28.58 & 6.73  \\
 UGC~09133  & 2 & 227 & 0.82           & 10.83 & 8.51  & 7.95  & 4.84  \\
@@ -568,11 +506,13 @@ UGC~02953  & 2 & 265 & $1.01^\dagger$ & 10.80 & 5.74  & 5.64  & 2.23  \\
 NGC~5985   & 3 & 294 & $1.01^\dagger$ & 3.61  & 2.63  & 2.61  & 2.18  \\
 NGC~0289   & 4 & 163 & $1.01^\dagger$ & 2.60  & 1.95  & 2.02  & 1.65  \\
 UGC~00128  & 8 & 73  & $1.01^\dagger$ & 7.20  & 2.52  & 2.58  & 2.70  \\
-\bottomrule
+\hline
 \end{tabular}
 \end{table}
 
+
 \clearpage
+\bibliographystyle{aasjournalv7}
 \bibliography{full_refs}
 
 \end{document}
